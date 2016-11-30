@@ -1,6 +1,6 @@
-package com.sjjapps.mvpandroid.mvp;
+package com.shanejansen.mvpandroid.mvp;
 
-import com.sjjapps.mvpandroid.handlers.LoadingHandler;
+import com.shanejansen.mvpandroid.handlers.LoadingHandler;
 
 /**
  * Created by Shane Jansen on 5/24/16.

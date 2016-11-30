@@ -1,4 +1,4 @@
-package com.sjjapps.mvpandroid.mvp;
+package com.shanejansen.mvpandroid.mvp;
 
 import android.app.Activity;
 import android.content.Context;

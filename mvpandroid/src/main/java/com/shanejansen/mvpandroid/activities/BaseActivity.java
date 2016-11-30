@@ -1,9 +1,9 @@
-package com.sjjapps.mvpandroid.activities;
+package com.shanejansen.mvpandroid.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import com.sjjapps.mvpandroid.R;
+import com.shanejansen.mvpandroid.R;
 
 /**
  * Created by Shane Jansen on 11/16/15.

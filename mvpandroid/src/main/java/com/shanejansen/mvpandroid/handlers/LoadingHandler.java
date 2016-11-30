@@ -1,4 +1,4 @@
-package com.sjjapps.mvpandroid.handlers;
+package com.shanejansen.mvpandroid.handlers;
 
 /**
  * Created by Shane Jansen on 11/22/16.

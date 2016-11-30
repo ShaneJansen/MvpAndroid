@@ -1,4 +1,4 @@
-package com.sjjapps.mvpandroid.fragments;
+package com.shanejansen.mvpandroid.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -7,7 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.sjjapps.mvpandroid.handlers.TransactionHandler;
+import com.shanejansen.mvpandroid.handlers.TransactionHandler;
 
 /**
  * Created by Shane Jansen on 3/25/16.

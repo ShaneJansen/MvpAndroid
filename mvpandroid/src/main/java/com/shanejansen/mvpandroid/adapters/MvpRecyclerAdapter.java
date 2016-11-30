@@ -1,4 +1,4 @@
-package com.sjjapps.mvpandroid.adapters;
+package com.shanejansen.mvpandroid.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import java.util.ArrayList;

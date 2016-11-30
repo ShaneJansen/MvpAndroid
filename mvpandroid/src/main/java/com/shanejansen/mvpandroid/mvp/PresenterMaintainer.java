@@ -1,4 +1,4 @@
-package com.sjjapps.mvpandroid.mvp;
+package com.shanejansen.mvpandroid.mvp;
 
 import android.os.Bundle;
 import com.google.common.cache.Cache;

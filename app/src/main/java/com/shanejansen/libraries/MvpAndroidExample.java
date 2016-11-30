@@ -1,4 +1,4 @@
-package com.sjjapps.libraries;
+package com.shanejansen.libraries;
 
 /**
  * Created by Shane Jansen on 11/29/16.

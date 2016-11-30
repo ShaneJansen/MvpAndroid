@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'com.github.dcendents.android-maven'
 
 android {
   compileSdkVersion 25
@@ -8,7 +10,7 @@ android {
     minSdkVersion 16
     targetSdkVersion 25
     versionCode 1
-    versionName "1.0"
+    versionName "1.0.0"
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
@@ -25,4 +27,50 @@ dependencies {
   compile 'com.android.support:appcompat-v7:25.0.1'
   compile 'com.android.support:design:25.0.1'
   compile 'com.google.guava:guava:19.0'
+}
+
+group =
+    'com.shanejansen.mvpandroid' // The path used when accessing the library (Gradle: compile: ...)
+version = '1.0.0'
+
+task generateSourcesJar(type: Jar) {
+  from android.sourceSets.main.java.srcDirs
+  classifier 'sources'
+}
+
+task generateJavadocs(type: Javadoc) {
+  source = android.sourceSets.main.java.srcDirs
+  classpath += project.files(android.getBootClasspath()
+      .join(File.pathSeparator))
+}
+
+task generateJavadocsJar(type: Jar) {
+  from generateJavadocs.destinationDir
+  classifier 'javadoc'
+}
+
+generateJavadocsJar.dependsOn generateJavadocs
+
+artifacts {
+  archives generateJavadocsJar
+  archives generateSourcesJar
+}
+
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+
+bintray {
+  user = properties.getProperty("bintray.user")
+  key = properties.getProperty("bintray.apikey")
+  pkg {
+    userOrg = 'shanejansen'
+    repo = 'maven'
+    name = 'mvpandroid' // The package name created in Bintray
+    licenses = ['Apache-2.0']
+    vcsUrl = 'https://github.com/ShaneJansen/MvpAndroid.git'
+    version {
+      name = '1.0.0'
+    }
+  }
+  configurations = ['archives']
 }
