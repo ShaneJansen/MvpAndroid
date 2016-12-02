@@ -58,15 +58,21 @@ public abstract class FragmentActivity extends BaseActivity
   }
 
   @Override
-  public void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack) {
+  public void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack,
+      String tag) {
     FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
     if (shouldAddToBackStack) {
       transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
           android.R.anim.fade_in, android.R.anim.fade_out);
     }
-    transaction.replace(containerId, fragment, fragment.getClass().getName());
+    transaction.replace(containerId, fragment, tag);
     if (shouldAddToBackStack) transaction.addToBackStack(null);
     transaction.commit();
+  }
+
+  @Override
+  public void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack) {
+    addFragment(fragment, containerId, shouldAddToBackStack, fragment.getClass().getName());
   }
 
   @Override public void removeCurrentFragment() {
@@ -77,6 +83,43 @@ public abstract class FragmentActivity extends BaseActivity
   @Override public void onBackStackChanged() {
     setActionBarNavigation();
     setActionBarTitle(null);
+  }
+
+  /**
+   * Searches for a fragment based on the default tag. A new fragment is created if one was not
+   * found.
+   *
+   * @param clazz The fragment's class
+   * @param tag The custom tag that was set when the fragment was added
+   * @param <T> The fragment's type
+   * @return The created or retrieved fragment
+   */
+  @SuppressWarnings("unchecked") protected <T extends Fragment> T createOrRetrieveFragment(
+      Class<T> clazz, String tag) {
+    T fragment = (T) getSupportFragmentManager().findFragmentByTag(tag);
+    if (fragment == null) {
+      try {
+        fragment = clazz.newInstance();
+      } catch (InstantiationException e) {
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      }
+    }
+    return fragment;
+  }
+
+  /**
+   * Searches for a fragment based on the default tag. A new fragment is created if one was not
+   * found.
+   *
+   * @param clazz The fragment's class
+   * @param <T> The fragment's type
+   * @return The created or retrieved fragment
+   */
+  @SuppressWarnings("unchecked") protected <T extends Fragment> T createOrRetrieveFragment(
+      Class<T> clazz) {
+    return createOrRetrieveFragment(clazz, clazz.getName());
   }
 
   /**

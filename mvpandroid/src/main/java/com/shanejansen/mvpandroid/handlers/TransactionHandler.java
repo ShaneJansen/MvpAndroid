@@ -21,6 +21,16 @@ public interface TransactionHandler {
    * @param fragment Fragment to add
    * @param containerId Id of the fragment's container
    * @param shouldAddToBackStack True if the fragment should be added to the back stack
+   * @param tag Used when the fragment is added to the FragmentManager
+   */
+  void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack, String tag);
+
+  /**
+   * Add a new fragment to the current Activity.
+   *
+   * @param fragment Fragment to add
+   * @param containerId Id of the fragment's container
+   * @param shouldAddToBackStack True if the fragment should be added to the back stack
    */
   void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack);
 
