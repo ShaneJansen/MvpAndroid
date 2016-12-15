@@ -75,26 +75,7 @@ public abstract class FragmentActivity extends BaseActivity
     addFragment(fragment, containerId, shouldAddToBackStack, fragment.getClass().getName());
   }
 
-  @Override public void removeCurrentFragment() {
-    getSupportFragmentManager().popBackStack();
-  }
-
-  /* -------------- FragmentManager Callbacks -------------- */
-  @Override public void onBackStackChanged() {
-    setActionBarNavigation();
-    setActionBarTitle(null);
-  }
-
-  /**
-   * Searches for a fragment based on the default tag. A new fragment is created if one was not
-   * found.
-   *
-   * @param clazz The fragment's class
-   * @param tag The custom tag that was set when the fragment was added
-   * @param <T> The fragment's type
-   * @return The created or retrieved fragment
-   */
-  @SuppressWarnings("unchecked") protected <T extends Fragment> T createOrRetrieveFragment(
+  @Override @SuppressWarnings("unchecked") public <T extends Fragment> T createOrRetrieveFragment(
       Class<T> clazz, String tag) {
     T fragment = (T) getSupportFragmentManager().findFragmentByTag(tag);
     if (fragment == null) {
@@ -109,17 +90,19 @@ public abstract class FragmentActivity extends BaseActivity
     return fragment;
   }
 
-  /**
-   * Searches for a fragment based on the default tag. A new fragment is created if one was not
-   * found.
-   *
-   * @param clazz The fragment's class
-   * @param <T> The fragment's type
-   * @return The created or retrieved fragment
-   */
-  @SuppressWarnings("unchecked") protected <T extends Fragment> T createOrRetrieveFragment(
+  @Override @SuppressWarnings("unchecked") public <T extends Fragment> T createOrRetrieveFragment(
       Class<T> clazz) {
     return createOrRetrieveFragment(clazz, clazz.getName());
+  }
+
+  @Override public void removeCurrentFragment() {
+    getSupportFragmentManager().popBackStack();
+  }
+
+  /* -------------- FragmentManager Callbacks -------------- */
+  @Override public void onBackStackChanged() {
+    setActionBarNavigation();
+    setActionBarTitle(null);
   }
 
   /**

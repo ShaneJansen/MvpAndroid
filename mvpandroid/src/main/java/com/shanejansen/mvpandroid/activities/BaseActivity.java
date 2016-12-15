@@ -21,7 +21,9 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected abstract int getLayoutResourceId();
 
   /**
-   * Used to get the toolbar resource id for this activity.
+   * Used to get the toolbar resource id for this activity.  This toolbar will be set as the
+   * application's support action bar.  If you want to access the toolbar/actionbar, the
+   * getSupportActionBar() method should be used.
    *
    * @return The toolbar resource id.
    */

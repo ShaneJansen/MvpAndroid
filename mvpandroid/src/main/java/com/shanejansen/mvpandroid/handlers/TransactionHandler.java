@@ -35,6 +35,27 @@ public interface TransactionHandler {
   void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack);
 
   /**
+   * Searches for a fragment based on the default tag. A new fragment is created if one was not
+   * found.
+   *
+   * @param clazz The fragment's class
+   * @param tag The custom tag that was set when the fragment was added
+   * @param <T> The fragment's type
+   * @return The created or retrieved fragment
+   */
+  <T extends Fragment> T createOrRetrieveFragment(Class<T> clazz, String tag);
+
+  /**
+   * Searches for a fragment based on the default tag. A new fragment is created if one was not
+   * found.
+   *
+   * @param clazz The fragment's class
+   * @param <T> The fragment's type
+   * @return The created or retrieved fragment
+   */
+  <T extends Fragment> T createOrRetrieveFragment(Class<T> clazz);
+
+  /**
    * Removes the curent fragment from the Activity.
    * Modifies the back stack.
    */

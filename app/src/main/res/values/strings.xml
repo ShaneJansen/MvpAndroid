@@ -1,3 +1,7 @@
 <resources>
   <string name="app_name">Libraries</string>
+  <string name="add_fragment">Add Fragment</string>
+  <string name="switch_activities">Switch Activities</string>
+  <string name="activity_fragment_support">This is a standard activity which does not support fragments.</string>
+  <string name="fragment_second">This is the second fragment.</string>
 </resources>
