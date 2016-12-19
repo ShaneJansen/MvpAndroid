@@ -1,6 +1,5 @@
 package com.shanejansen.libraries;
 
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import com.shanejansen.libraries.common.AppFragmentActivity;
 
@@ -21,18 +20,15 @@ public class MainActivity extends AppFragmentActivity {
     return "";
   }
 
+  @Override protected void addInitialFragments() {
+    addFragment(new MainFragment(), MAIN_CONTAINER, false);
+  }
+
   @Override protected int getLayoutResourceId() {
     return R.layout.activity_main;
   }
 
   @Override protected int getToolbarResourceId() {
     return R.id.toolbar;
-  }
-
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    if (savedInstanceState == null) {
-      addFragment(createOrRetrieveFragment(MainFragment.class), MAIN_CONTAINER, false); // Initial fragment
-    }
   }
 }

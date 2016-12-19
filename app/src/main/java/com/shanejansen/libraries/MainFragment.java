@@ -13,9 +13,7 @@ public class MainFragment extends AppBaseFragment {
   }
 
   @OnClick(R.id.btnAddFragment) void btnAddFragmentClicked() {
-    getTransactionHandler().addFragment(
-        getTransactionHandler().createOrRetrieveFragment(SecondFragment.class),
-        MainActivity.MAIN_CONTAINER, true);
+    getTransactionHandler().addFragment(new SecondFragment(), MainActivity.MAIN_CONTAINER, true);
   }
 
   @OnClick(R.id.btnSwitchActivities) void btnSwitchActivitiesClicked() {

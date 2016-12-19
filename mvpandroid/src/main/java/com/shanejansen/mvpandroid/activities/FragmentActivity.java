@@ -17,6 +17,8 @@ import com.shanejansen.mvpandroid.handlers.TransactionHandler;
  */
 public abstract class FragmentActivity extends BaseActivity
     implements TransactionHandler, FragmentManager.OnBackStackChangedListener {
+  private boolean mDidRecreate;
+
   /**
    * Used to get the primary fragment container which is used to set the title for this activity.
    *
@@ -32,10 +34,20 @@ public abstract class FragmentActivity extends BaseActivity
    */
   protected abstract String getActionBarTitle(Fragment fragment);
 
+  /**
+   * All initial Fragments for this Activity should be added here.  This ensures that Fragments
+   * will
+   * be handled correctly during orientation changes and other lifecycle changes.
+   */
+  protected abstract void addInitialFragments();
+
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     getSupportFragmentManager().addOnBackStackChangedListener(this);
-    if (getSupportActionBar() != null) setActionBarNavigation();
+
+    // Handle the initial Fragment(s)
+    if (savedInstanceState != null) mDidRecreate = true;
+    if (!mDidRecreate) addInitialFragments();
   }
 
   @Override public void onAttachFragment(Fragment fragment) {
@@ -75,24 +87,14 @@ public abstract class FragmentActivity extends BaseActivity
     addFragment(fragment, containerId, shouldAddToBackStack, fragment.getClass().getName());
   }
 
-  @Override @SuppressWarnings("unchecked") public <T extends Fragment> T createOrRetrieveFragment(
-      Class<T> clazz, String tag) {
-    T fragment = (T) getSupportFragmentManager().findFragmentByTag(tag);
-    if (fragment == null) {
-      try {
-        fragment = clazz.newInstance();
-      } catch (InstantiationException e) {
-        e.printStackTrace();
-      } catch (IllegalAccessException e) {
-        e.printStackTrace();
-      }
+  @Override @SuppressWarnings("unchecked")
+  public <T extends Fragment> T retrieveFragment(String tag) throws ClassNotFoundException {
+    T foundFragment = (T) getSupportFragmentManager().findFragmentByTag(tag);
+    if (foundFragment == null) {
+      throw new ClassNotFoundException(
+          "The Fragment with the given tag could not be found in this Activity");
     }
-    return fragment;
-  }
-
-  @Override @SuppressWarnings("unchecked") public <T extends Fragment> T createOrRetrieveFragment(
-      Class<T> clazz) {
-    return createOrRetrieveFragment(clazz, clazz.getName());
+    return foundFragment;
   }
 
   @Override public void removeCurrentFragment() {
@@ -106,38 +108,18 @@ public abstract class FragmentActivity extends BaseActivity
   }
 
   /**
-   * Sets the action bar navigation icons based on the number of Activities or Fragments in the
-   * back-stack.
-   */
-  protected void setActionBarNavigation() {
-    if (getSupportActionBar() != null) {
-      int numBack = getSupportFragmentManager().getBackStackEntryCount();
-      Intent upIntent = NavUtils.getParentActivityIntent(this);
-      if (numBack != 0 || upIntent != null) {
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-      } else {
-        assert getSupportActionBar() != null;
-        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-      }
-    }
-  }
-
-  /**
    * Sets the action bar title based on the given fragment. If null is passed, the current
    * fragment in the primary fragment container will be used.
    *
    * @param fragment The fragment to use for a title. Can be null
    */
-  protected void setActionBarTitle(Fragment fragment) {
+  private void setActionBarTitle(Fragment fragment) {
     if (getSupportActionBar() != null) {
       if (fragment == null) {
         fragment = getSupportFragmentManager().
             findFragmentById(getMainFragmentContainerResourceId());
       }
       String title = getActionBarTitle(fragment);
-      assert getSupportActionBar() != null;
       getSupportActionBar().setTitle(title);
     }
   }

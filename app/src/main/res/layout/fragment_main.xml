@@ -12,7 +12,7 @@
       android:layout_height="wrap_content"
       android:text="@string/add_fragment"
       />
-  
+
   <Button
       android:id="@+id/btnSwitchActivities"
       android:layout_width="wrap_content"
