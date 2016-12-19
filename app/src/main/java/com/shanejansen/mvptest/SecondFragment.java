@@ -1,6 +1,6 @@
-package com.shanejansen.libraries;
+package com.shanejansen.mvptest;
 
-import com.shanejansen.libraries.common.AppBaseFragment;
+import com.shanejansen.mvptest.common.AppBaseFragment;
 
 /**
  * Created by Shane Jansen on 12/13/16.

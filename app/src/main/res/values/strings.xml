@@ -1,5 +1,5 @@
 <resources>
-  <string name="app_name">Libraries</string>
+  <string name="app_name">MVP Test</string>
   <string name="add_fragment">Add Fragment</string>
   <string name="switch_activities">Switch Activities</string>
   <string name="activity_fragment_support">This is a standard Activity which does not support Fragments.</string>

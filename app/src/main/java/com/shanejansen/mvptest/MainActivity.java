@@ -1,7 +1,7 @@
-package com.shanejansen.libraries;
+package com.shanejansen.mvptest;
 
 import android.support.v4.app.Fragment;
-import com.shanejansen.libraries.common.AppFragmentActivity;
+import com.shanejansen.mvptest.common.AppFragmentActivity;
 
 /**
  * Created by Shane Jansen on 11/29/16.

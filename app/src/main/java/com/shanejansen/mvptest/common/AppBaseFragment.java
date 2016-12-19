@@ -1,4 +1,4 @@
-package com.shanejansen.libraries.common;
+package com.shanejansen.mvptest.common;
 
 import android.os.Bundle;
 import android.view.View;
