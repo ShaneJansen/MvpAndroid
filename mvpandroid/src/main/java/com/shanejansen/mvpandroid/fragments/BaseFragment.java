@@ -17,6 +17,7 @@ import com.shanejansen.mvpandroid.handlers.TransactionHandler;
  */
 public abstract class BaseFragment extends Fragment {
   private TransactionHandler mTransactionHandler;
+  private boolean mDidRecreate;
 
   /**
    * Used to get the layout resource id for this fragment.
@@ -32,6 +33,10 @@ public abstract class BaseFragment extends Fragment {
     } catch (ClassCastException e) {
       throw new ClassCastException(getActivity().toString() + " must implement TransactionHandler");
     }
+
+    // Handle the initial Fragment(s) (Fragments could be nested in this Fragment)
+    if (savedInstanceState != null) mDidRecreate = true;
+    if (!mDidRecreate) addInitialFragments();
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +44,13 @@ public abstract class BaseFragment extends Fragment {
     View v = inflater.inflate(getLayoutResourceId(), container, false);
     onViewInflated(v, savedInstanceState);
     return v;
+  }
+
+  /**
+   * All initial Fragments for this Fragment should be added here.  This ensures that Fragments
+   * will be handled correctly during orientation changes and other lifecycle changes.
+   */
+  protected void addInitialFragments() {
   }
 
   /**

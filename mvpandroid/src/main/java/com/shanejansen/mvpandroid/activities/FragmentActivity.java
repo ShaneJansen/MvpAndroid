@@ -36,8 +36,7 @@ public abstract class FragmentActivity extends BaseActivity
 
   /**
    * All initial Fragments for this Activity should be added here.  This ensures that Fragments
-   * will
-   * be handled correctly during orientation changes and other lifecycle changes.
+   * will be handled correctly during orientation changes and other lifecycle changes.
    */
   protected abstract void addInitialFragments();
 
@@ -64,7 +63,7 @@ public abstract class FragmentActivity extends BaseActivity
     return true;
   }
 
-  /* -------------- TransactionHandler Callbacks -------------- */
+  //region TransactionHandler Callbacks
   @Override public boolean isTablet() {
     return super.isTablet();
   }
@@ -87,24 +86,34 @@ public abstract class FragmentActivity extends BaseActivity
     addFragment(fragment, containerId, shouldAddToBackStack, fragment.getClass().getName());
   }
 
-  @Override @SuppressWarnings("unchecked")
-  public <T extends Fragment> T retrieveFragment(String tag) throws ClassNotFoundException {
+  @Override public void removeCurrentFragment() {
+    getSupportFragmentManager().popBackStack();
+  }
+  //endregion
+
+  //region FragmentManager Callbacks
+  @Override public void onBackStackChanged() {
+    setActionBarNavigation();
+    setActionBarTitle(null);
+  }
+  //endregion
+
+  /**
+   * Searches for a fragment based on the given tag. Throws and exception if the fragment could not
+   * be found.
+   *
+   * @param tag The custom tag that was set when the fragment was added
+   * @param <T> The fragment's type
+   * @return The retrieved fragment
+   */
+  @SuppressWarnings("unchecked") public <T extends Fragment> T retrieveFragment(String tag)
+      throws ClassNotFoundException {
     T foundFragment = (T) getSupportFragmentManager().findFragmentByTag(tag);
     if (foundFragment == null) {
       throw new ClassNotFoundException(
           "The Fragment with the given tag could not be found in this Activity");
     }
     return foundFragment;
-  }
-
-  @Override public void removeCurrentFragment() {
-    getSupportFragmentManager().popBackStack();
-  }
-
-  /* -------------- FragmentManager Callbacks -------------- */
-  @Override public void onBackStackChanged() {
-    setActionBarNavigation();
-    setActionBarTitle(null);
   }
 
   /**

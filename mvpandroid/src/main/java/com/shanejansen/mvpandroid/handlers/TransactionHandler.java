@@ -35,16 +35,6 @@ public interface TransactionHandler {
   void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack);
 
   /**
-   * Searches for a fragment based on the given tag. Throws and exception if the fragment could not
-   * be found.
-   *
-   * @param tag The custom tag that was set when the fragment was added
-   * @param <T> The fragment's type
-   * @return The retrieved fragment
-   */
-  <T extends Fragment> T retrieveFragment(String tag) throws ClassNotFoundException;
-
-  /**
    * Removes the curent fragment from the Activity.
    * Modifies the back stack.
    */
