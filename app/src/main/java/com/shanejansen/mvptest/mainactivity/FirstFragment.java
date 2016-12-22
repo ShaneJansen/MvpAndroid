@@ -1,13 +1,16 @@
-package com.shanejansen.mvptest;
+package com.shanejansen.mvptest.mainactivity;
 
 import android.content.Intent;
 import butterknife.OnClick;
+import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.common.AppBaseFragment;
+import com.shanejansen.mvptest.multifragmentactivity.MultiFragmentActivity;
+import com.shanejansen.mvptest.secondactivity.SecondActivity;
 
 /**
  * Created by Shane Jansen on 12/13/16.
  */
-public class MainFragment extends AppBaseFragment {
+public class FirstFragment extends AppBaseFragment {
   @Override protected int getLayoutResourceId() {
     return R.layout.fragment_main;
   }
@@ -18,5 +21,9 @@ public class MainFragment extends AppBaseFragment {
 
   @OnClick(R.id.btnSwitchActivities) void btnSwitchActivitiesClicked() {
     startActivity(new Intent(getAppContext(), SecondActivity.class));
+  }
+
+  @OnClick(R.id.btnMultiFragmentActivity) void btnMultiFragmentActivityClicked() {
+    startActivity(new Intent(getAppContext(), MultiFragmentActivity.class));
   }
 }

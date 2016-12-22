@@ -1,6 +1,7 @@
-package com.shanejansen.mvptest;
+package com.shanejansen.mvptest.secondactivity;
 
 import android.os.Bundle;
+import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.common.AppBaseActivity;
 
 /**

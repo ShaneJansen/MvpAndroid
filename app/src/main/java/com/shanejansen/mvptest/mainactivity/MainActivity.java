@@ -1,6 +1,7 @@
-package com.shanejansen.mvptest;
+package com.shanejansen.mvptest.mainactivity;
 
 import android.support.v4.app.Fragment;
+import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.common.AppFragmentActivity;
 
 /**
@@ -10,18 +11,18 @@ public class MainActivity extends AppFragmentActivity {
   public final static int MAIN_CONTAINER = R.id.flFragmentContainer;
 
   @Override protected int getMainFragmentContainerResourceId() {
-    return R.id.flFragmentContainer;
+    return MAIN_CONTAINER;
   }
 
   @Override protected String getActionBarTitle(Fragment fragment) {
-    if (fragment instanceof MainFragment) {
-      return "MainFragment";
+    if (fragment instanceof FirstFragment) {
+      return "FirstFragment";
     } else if (fragment instanceof SecondFragment) return "SecondFragment";
     return "";
   }
 
   @Override protected void addInitialFragments() {
-    addFragment(new MainFragment(), MAIN_CONTAINER, false);
+    addFragment(new FirstFragment(), MAIN_CONTAINER, false);
   }
 
   @Override protected int getLayoutResourceId() {

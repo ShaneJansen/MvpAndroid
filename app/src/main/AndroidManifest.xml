@@ -7,7 +7,7 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name="com.shanejansen.mvptest.MainActivity">
+    <activity android:name="com.shanejansen.mvptest.mainactivity.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -15,8 +15,12 @@
     </activity>
 
     <activity
-        android:name="com.shanejansen.mvptest.SecondActivity"
-        android:parentActivityName="com.shanejansen.mvptest.MainActivity" />
+        android:name="com.shanejansen.mvptest.secondactivity.SecondActivity"
+        android:parentActivityName="com.shanejansen.mvptest.mainactivity.MainActivity" />
+
+    <activity
+        android:name="com.shanejansen.mvptest.multifragmentactivity.MultiFragmentActivity"
+        android:parentActivityName="com.shanejansen.mvptest.mainactivity.MainActivity" />
   </application>
 
 </manifest>
