@@ -8,25 +8,9 @@ import com.shanejansen.mvpandroid.handlers.LoadingHandler;
  * Building block for view models in the MVP architecture.
  */
 public abstract class BaseViewModel<P> implements LoadingHandler {
-  private boolean mShouldLoadData;
   private P mPresenter;
 
   public BaseViewModel() {
-    mShouldLoadData = true;
-  }
-
-  /**
-   * Called when the model should re-call all of its data methods.
-   */
-  protected abstract void reload();
-
-  @Override public void preventDataLoad() {
-    mShouldLoadData = false;
-  }
-
-  @Override public void reloadData() {
-    mShouldLoadData = true;
-    reload();
   }
 
   /**
@@ -58,14 +42,5 @@ public abstract class BaseViewModel<P> implements LoadingHandler {
     } else {
       throw new NullPointerException("Presenter is unavailable");
     }
-  }
-
-  /**
-   * Returns true if this view model should make data requests.
-   *
-   * @return True if this view model should make data requests
-   */
-  protected boolean shouldLoadData() {
-    return mShouldLoadData;
   }
 }
