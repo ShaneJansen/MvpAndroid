@@ -1,5 +1,5 @@
 # MvpAndroid
 Gradle
 ```groovy
-compile 'com.shanejansen.mvpandroid:mvpandroid:1.0.4'
+compile 'com.shanejansen.mvpandroid:mvpandroid:1.0.5'
 ```
