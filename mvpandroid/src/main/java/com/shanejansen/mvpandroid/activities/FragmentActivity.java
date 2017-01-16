@@ -17,6 +17,9 @@ import com.shanejansen.mvpandroid.handlers.TransactionHandler;
  */
 public abstract class FragmentActivity extends BaseActivity
     implements TransactionHandler, FragmentManager.OnBackStackChangedListener {
+  // It's possible that a FragmentActivity does not have a Fragment container
+  // E.g. A ViewPager manages Fragments, but does not require a Fragment container
+  protected static final int NO_MAIN_CONTAINER = 0;
   private boolean mDidRecreate;
 
   /**
@@ -124,7 +127,7 @@ public abstract class FragmentActivity extends BaseActivity
    */
   private void setActionBarTitle(Fragment fragment) {
     if (getSupportActionBar() != null) {
-      if (fragment == null) {
+      if (fragment == null && getMainFragmentContainerResourceId() != NO_MAIN_CONTAINER) {
         fragment = getSupportFragmentManager().
             findFragmentById(getMainFragmentContainerResourceId());
       }

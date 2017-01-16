@@ -3,6 +3,7 @@ package com.shanejansen.mvptest.mainactivity;
 import android.support.v4.app.Fragment;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.common.AppFragmentActivity;
+import com.shanejansen.mvptest.mvpexample.MvpExampleFragment;
 
 /**
  * Created by Shane Jansen on 11/29/16.
@@ -17,7 +18,9 @@ public class MainActivity extends AppFragmentActivity {
   @Override protected String getActionBarTitle(Fragment fragment) {
     if (fragment instanceof FirstFragment) {
       return "FirstFragment";
-    } else if (fragment instanceof SecondFragment) return "SecondFragment";
+    } else if (fragment instanceof SecondFragment) {
+      return "SecondFragment";
+    } else if (fragment instanceof MvpExampleFragment) return "MvpExampleFragment";
     return "";
   }
 

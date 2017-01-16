@@ -14,6 +14,13 @@
       />
 
   <Button
+      android:id="@+id/btnAddMvpFragment"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/add_mvp_fragment"
+      />
+
+  <Button
       android:id="@+id/btnSwitchActivities"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"

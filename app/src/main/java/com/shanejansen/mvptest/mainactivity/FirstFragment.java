@@ -5,6 +5,9 @@ import butterknife.OnClick;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.common.AppBaseFragment;
 import com.shanejansen.mvptest.multifragmentactivity.MultiFragmentActivity;
+import com.shanejansen.mvptest.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.mvpexample.MvpExamplePresenter;
+import com.shanejansen.mvptest.mvpexample.MvpExampleViewModel;
 import com.shanejansen.mvptest.secondactivity.SecondActivity;
 
 /**
@@ -17,6 +20,13 @@ public class FirstFragment extends AppBaseFragment {
 
   @OnClick(R.id.btnAddFragment) void btnAddFragmentClicked() {
     getTransactionHandler().addFragment(new SecondFragment(), MainActivity.MAIN_CONTAINER, true);
+  }
+
+  @OnClick(R.id.btnAddMvpFragment) void btnAddMvpFragmentClicked() {
+    MvpExampleFragment mvpExampleFragment = new MvpExampleFragment();
+    mvpExampleFragment.setPresenter(new MvpExamplePresenter());
+    mvpExampleFragment.setViewModel(new MvpExampleViewModel());
+    getTransactionHandler().addFragment(mvpExampleFragment, MainActivity.MAIN_CONTAINER, true);
   }
 
   @OnClick(R.id.btnSwitchActivities) void btnSwitchActivitiesClicked() {

@@ -23,44 +23,21 @@ public abstract class MvpFragment<M extends BaseViewModel, V extends BaseView, P
   private M mViewModel;
 
   /**
-   * Used the get the default MVP model. This is the model that will be used if one is not
-   * specified during Fragment creation.
+   * Used to get the MVP view.
    *
-   * @return The default MVP model
-   */
-  protected abstract M getDefaultMvpModel();
-
-  /**
-   * Used to get the default MVP view. This is the view that will be used if one is not specified
-   * during Fragment creation.
-   *
-   * @return The default MVP view
+   * @return The MVP view
    */
   protected abstract V getMvpView();
-
-  /**
-   * Used to get the default MVP presenter. This is the presenter that will be used if one is not
-   * specified during Fragment creation.
-   *
-   * @return The default MVP presenter
-   */
-  protected abstract P getDefaultMvpPresenter();
 
   @SuppressWarnings("unchecked") @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     if (savedInstanceState == null) {
-      /*mPresenter = getMvpPresenter();
-      M model = getMvpModel();
-      mPresenter.bindView(getMvpView());
-      if (mTestModel == null) {
-        mPresenter.bindModel(model);
-      } else {
-        mPresenter.bindModel(mTestModel);
+      if (mPresenter == null) {
+        throw new RuntimeException("Presenter must be set first using setPresenter(..)");
       }
-      model.bindPresenter(mPresenter);*/
-
-      if (mPresenter == null) mPresenter = getDefaultMvpPresenter();
-      if (mViewModel == null) mViewModel = getDefaultMvpModel();
+      if (mViewModel == null) {
+        throw new RuntimeException("ViewModel must be set first using set setViewModel(..)");
+      }
       mPresenter.bindView(getMvpView());
       mPresenter.bindModel(mViewModel);
       mViewModel.bindPresenter(mPresenter);
@@ -112,18 +89,18 @@ public abstract class MvpFragment<M extends BaseViewModel, V extends BaseView, P
   /**
    * Sets a custom presenter overriding the default.
    *
-   * @param customPresenter The custom presenter object
+   * @param presenter The custom presenter object
    */
-  public void setCustomPresenter(P customPresenter) {
-    mPresenter = customPresenter;
+  public void setPresenter(P presenter) {
+    mPresenter = presenter;
   }
 
   /**
    * Sets a custom view model overriding the default.
    *
-   * @param customModel The custom view model object
+   * @param viewModel The custom view model object
    */
-  public void setCustomModel(M customModel) {
-    mViewModel = customModel;
+  public void setViewModel(M viewModel) {
+    mViewModel = viewModel;
   }
 }

@@ -6,4 +6,6 @@
   <string name="fragment_second">This is the second fragment.</string>
   <string name="fragment">This is a fragment.</string>
   <string name="multi_fragment_activity">Multi-Fragment Activity</string>
+  <string name="add_mvp_fragment">Add MVP Fragment</string>
+  <string name="load_data">Load Data</string>
 </resources>
