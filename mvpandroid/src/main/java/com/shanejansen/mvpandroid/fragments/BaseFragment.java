@@ -17,6 +17,7 @@ import com.shanejansen.mvpandroid.handlers.TransactionHandler;
  */
 public abstract class BaseFragment extends Fragment {
   private TransactionHandler mTransactionHandler;
+  private boolean mIsActive;
   private boolean mDidRecreate;
 
   /**
@@ -41,9 +42,24 @@ public abstract class BaseFragment extends Fragment {
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
+    mIsActive = true;
     View v = inflater.inflate(getLayoutResourceId(), container, false);
     onViewInflated(v, savedInstanceState);
     return v;
+  }
+
+  @Override public void onDestroyView() {
+    super.onDestroyView();
+    mIsActive = false;
+  }
+
+  /**
+   * Returns true if this Fragment's view is currently displayed.
+   *
+   * @return true if this Fragment's view is currently displayed
+   */
+  public boolean isActive() {
+    return mIsActive;
   }
 
   /**

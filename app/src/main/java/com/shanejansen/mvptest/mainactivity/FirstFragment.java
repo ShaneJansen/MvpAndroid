@@ -24,8 +24,8 @@ public class FirstFragment extends AppBaseFragment {
 
   @OnClick(R.id.btnAddMvpFragment) void btnAddMvpFragmentClicked() {
     MvpExampleFragment mvpExampleFragment = new MvpExampleFragment();
-    mvpExampleFragment.setPresenter(new MvpExamplePresenter());
-    mvpExampleFragment.setViewModel(new MvpExampleViewModel());
+    mvpExampleFragment.bindPresenter(new MvpExamplePresenter());
+    mvpExampleFragment.bindViewModel(new MvpExampleViewModel());
     getTransactionHandler().addFragment(mvpExampleFragment, MainActivity.MAIN_CONTAINER, true);
   }
 

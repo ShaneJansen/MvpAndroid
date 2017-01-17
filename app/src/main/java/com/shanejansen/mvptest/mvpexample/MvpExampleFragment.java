@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
+import com.shanejansen.mvpandroid.mvp.BaseView;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.common.AppMvpFragment;
 
 /**
  * Created by Shane Jansen on 1/16/17.
  */
-public class MvpExampleFragment
-    extends AppMvpFragment<MvpExampleViewModel, MvpExample.ViewForPresenterOps, MvpExamplePresenter>
+public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForViewOps>
     implements MvpExample.ViewForPresenterOps {
   @Bind(R.id.tvData) TextView mTvData;
 
-  @Override protected MvpExample.ViewForPresenterOps getMvpView() {
+  @Override protected BaseView getMvpView() {
     return this;
   }
 

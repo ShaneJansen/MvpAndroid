@@ -17,51 +17,49 @@ import com.shanejansen.mvpandroid.mvp.PresenterMaintainer;
  * Building block for Fragments using the MVP architecture. All binding for the MVP architecture is
  * done here.
  */
-public abstract class MvpFragment<M extends BaseViewModel, V extends BaseView, P extends BasePresenter>
-    extends BaseFragment implements BaseView {
+public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
   private P mPresenter;
-  private M mViewModel;
 
   /**
    * Used to get the MVP view.
    *
    * @return The MVP view
    */
-  protected abstract V getMvpView();
+  protected abstract <V extends BaseView> V getMvpView();
 
   @SuppressWarnings("unchecked") @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     if (savedInstanceState == null) {
       if (mPresenter == null) {
-        throw new RuntimeException("Presenter must be set first using setPresenter(..)");
+        throw new RuntimeException("Presenter must be set first using bindPresenter(..)");
       }
-      if (mViewModel == null) {
-        throw new RuntimeException("ViewModel must be set first using set setViewModel(..)");
+      if (!(mPresenter instanceof BasePresenter)) {
+        throw new RuntimeException("Presenter must be an instanceof BasePresenter");
       }
-      mPresenter.bindView(getMvpView());
-      mPresenter.bindModel(mViewModel);
-      mViewModel.bindPresenter(mPresenter);
+      if (!((BasePresenter) mPresenter).viewModelExists()) {
+        throw new RuntimeException("ViewModel must be set first using set bindViewModel(..)");
+      }
     } else {
-      mPresenter = PresenterMaintainer.getInstance().restorePresenter(savedInstanceState);
-      mPresenter.bindView(getMvpView());
+      mPresenter = (P) PresenterMaintainer.getInstance().restorePresenter(savedInstanceState);
+      ((BasePresenter) mPresenter).bindView(getMvpView());
     }
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View v = super.onCreateView(inflater, container, savedInstanceState);
-    mPresenter.viewReady();
+    ((BasePresenter) mPresenter).viewReady();
     return v;
   }
 
-  @Override public void onSaveInstanceState(Bundle outState) {
+  @SuppressWarnings("unchecked") @Override public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     PresenterMaintainer.getInstance().savePresenter(mPresenter, outState);
   }
 
   @Override public void onDestroy() {
     super.onDestroy();
-    mPresenter.unbind(getActivity().isChangingConfigurations());
+    ((BasePresenter) mPresenter).unbind(getActivity().isChangingConfigurations());
   }
 
   @Override public Context getAppContext() {
@@ -69,30 +67,13 @@ public abstract class MvpFragment<M extends BaseViewModel, V extends BaseView, P
   }
 
   /**
-   * Returns the presenter for this view.
-   *
-   * @return The presenter
-   */
-  public P presenter() {
-    return mPresenter;
-  }
-
-  /**
-   * Returns the viewModel for this view.
-   *
-   * @return The viewModel
-   */
-  public M viewModel() {
-    return mViewModel;
-  }
-
-  /**
    * Sets a custom presenter overriding the default.
    *
    * @param presenter The custom presenter object
    */
-  public void setPresenter(P presenter) {
+  @SuppressWarnings("unchecked") public void bindPresenter(P presenter) {
     mPresenter = presenter;
+    ((BasePresenter) mPresenter).bindView(getMvpView());
   }
 
   /**
@@ -100,7 +81,20 @@ public abstract class MvpFragment<M extends BaseViewModel, V extends BaseView, P
    *
    * @param viewModel The custom view model object
    */
-  public void setViewModel(M viewModel) {
-    mViewModel = viewModel;
+  @SuppressWarnings("unchecked") public <M> void bindViewModel(M viewModel) {
+    if (mPresenter == null) {
+      throw new RuntimeException("Presenter must be set first using bindPresenter(..)");
+    }
+    ((BasePresenter) mPresenter).bindViewModel(viewModel);
+    ((BaseViewModel) viewModel).bindPresenter(mPresenter);
+  }
+
+  /**
+   * Returns the presenter for this view.
+   *
+   * @return The presenter
+   */
+  protected P presenter() {
+    return mPresenter;
   }
 }

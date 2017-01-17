@@ -40,29 +40,21 @@ public abstract class BasePresenter<V, M> {
   }
 
   /**
-   * Returns the Application's Context.
+   * Binds the view to this presenter.
    *
-   * @return The Application's Context
+   * @param view The view to bind
    */
-  public Context getAppContext() {
-    try {
-      return ((BaseView) view()).getAppContext();
-    } catch (NullPointerException e) {
-      return null;
-    }
+  public void bindView(V view) {
+    mView = new WeakReference<>(view);
   }
 
   /**
-   * Returns the Activity hosting this presenter.
+   * Binds the model to this presenter.
    *
-   * @return The Activity hosting this presenter
+   * @param model The model to bind
    */
-  public Activity getActivity() {
-    try {
-      return ((BaseView) view()).getActivity();
-    } catch (NullPointerException e) {
-      return null;
-    }
+  public void bindViewModel(M model) {
+    mViewModel = model;
   }
 
   /**
@@ -72,17 +64,26 @@ public abstract class BasePresenter<V, M> {
    */
   public void unbind(boolean isConfigurationChange) {
     mView = null;
-    ((BaseViewModel) mViewModel).unbindPresenter(isConfigurationChange);
+    ((BaseViewModel) mViewModel).unbind(isConfigurationChange);
     if (!isConfigurationChange) mViewModel = null;
   }
 
   /**
-   * Binds the view to this presenter.
+   * Returns true if this Presenter is bound to a View.
    *
-   * @param view The view to bind
+   * @return true if this Presenter is bound to a View
    */
-  public void bindView(V view) {
-    mView = new WeakReference<>(view);
+  public boolean viewExists() {
+    return mView != null;
+  }
+
+  /**
+   * Returns true if this Presenter is bound to a ViewModel.
+   *
+   * @return true if this Presenter is bound to a ViewModel
+   */
+  public boolean viewModelExists() {
+    return mViewModel != null;
   }
 
   protected V view() throws NullPointerException {
@@ -91,15 +92,6 @@ public abstract class BasePresenter<V, M> {
     } else {
       throw new NullPointerException("View in unavailable");
     }
-  }
-
-  /**
-   * Binds the model to this presenter.
-   *
-   * @param model The model to bind
-   */
-  public void bindModel(M model) {
-    mViewModel = model;
   }
 
   /**
@@ -112,6 +104,32 @@ public abstract class BasePresenter<V, M> {
       return mViewModel;
     } else {
       throw new NullPointerException("ViewModel is unavailable");
+    }
+  }
+
+  /**
+   * Returns the Application's Context.
+   *
+   * @return The Application's Context
+   */
+  protected Context getAppContext() {
+    try {
+      return ((BaseView) view()).getAppContext();
+    } catch (NullPointerException e) {
+      return null;
+    }
+  }
+
+  /**
+   * Returns the Activity hosting this presenter.
+   *
+   * @return The Activity hosting this presenter
+   */
+  protected Activity getActivity() {
+    try {
+      return ((BaseView) view()).getActivity();
+    } catch (NullPointerException e) {
+      return null;
     }
   }
 }

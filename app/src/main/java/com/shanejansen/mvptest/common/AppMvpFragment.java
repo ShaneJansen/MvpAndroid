@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import butterknife.ButterKnife;
 import com.shanejansen.mvpandroid.fragments.MvpFragment;
-import com.shanejansen.mvpandroid.mvp.BasePresenter;
-import com.shanejansen.mvpandroid.mvp.BaseView;
-import com.shanejansen.mvpandroid.mvp.BaseViewModel;
 
 /**
  * Created by Shane Jansen on 12/4/16.
  */
-public abstract class AppMvpFragment<M extends BaseViewModel, V extends BaseView, P extends BasePresenter>
-    extends MvpFragment<M, V, P> {
+public abstract class AppMvpFragment<P> extends MvpFragment<P> {
   @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
     super.onViewInflated(v, savedInstanceState);
     ButterKnife.bind(this, v);

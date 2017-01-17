@@ -27,8 +27,17 @@ public abstract class BaseViewModel<P> implements LoadingHandler {
    *
    * @param isConfigurationChange True if we are unbinding because of a configuration change
    */
-  public void unbindPresenter(boolean isConfigurationChange) {
+  public void unbind(boolean isConfigurationChange) {
     if (!isConfigurationChange) mPresenter = null;
+  }
+
+  /**
+   * Returns true if this ViewModel is bound to a Presenter.
+   *
+   * @return true if this ViewModel is bound to a Presenter
+   */
+  public boolean presenterExists() {
+    return mPresenter != null;
   }
 
   /**
@@ -36,7 +45,7 @@ public abstract class BaseViewModel<P> implements LoadingHandler {
    *
    * @return This view models' presenter
    */
-  public P presenter() {
+  protected P presenter() {
     if (mPresenter != null) {
       return mPresenter;
     } else {
