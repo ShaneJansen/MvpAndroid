@@ -1,14 +1,14 @@
-package com.shanejansen.mvptest.common;
+package com.shanejansen.mvptest.ui.common;
 
 import android.os.Bundle;
 import android.view.View;
 import butterknife.ButterKnife;
-import com.shanejansen.mvpandroid.fragments.MvpFragment;
+import com.shanejansen.mvpandroid.fragments.BaseFragment;
 
 /**
- * Created by Shane Jansen on 12/4/16.
+ * Created by Shane Jansen on 12/5/16.
  */
-public abstract class AppMvpFragment<P> extends MvpFragment<P> {
+public abstract class AppBaseFragment extends BaseFragment {
   @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
     super.onViewInflated(v, savedInstanceState);
     ButterKnife.bind(this, v);

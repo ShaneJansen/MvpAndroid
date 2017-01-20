@@ -1,11 +1,11 @@
-package com.shanejansen.mvptest.multifragmentactivity;
+package com.shanejansen.mvptest.ui.multifragmentactivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.Bind;
 import com.shanejansen.mvptest.R;
-import com.shanejansen.mvptest.common.AppBaseFragment;
+import com.shanejansen.mvptest.ui.common.AppBaseFragment;
 
 /**
  * Created by Shane Jansen on 12/13/16.

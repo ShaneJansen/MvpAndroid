@@ -1,4 +1,4 @@
-package com.shanejansen.mvptest.mvpexample;
+package com.shanejansen.mvptest.ui.mvpexample;
 
 import com.shanejansen.mvpandroid.mvp.BasePresenter;
 
@@ -18,7 +18,7 @@ public class MvpExamplePresenter
   }
 
   @Override public void onLoadedData() {
-    view().setDataText(viewModel().getData());
+    view().setDataText(viewModel().getData().getText());
   }
 
   @Override public void clickedLoadData() {

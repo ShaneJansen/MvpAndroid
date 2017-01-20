@@ -1,8 +1,8 @@
-package com.shanejansen.mvptest.multifragmentactivity;
+package com.shanejansen.mvptest.ui.multifragmentactivity;
 
 import android.support.v4.app.Fragment;
 import com.shanejansen.mvptest.R;
-import com.shanejansen.mvptest.common.AppFragmentActivity;
+import com.shanejansen.mvptest.ui.common.AppFragmentActivity;
 
 /**
  * Created by Shane Jansen on 12/22/16.

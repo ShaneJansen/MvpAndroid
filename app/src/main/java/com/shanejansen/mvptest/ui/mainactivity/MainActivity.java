@@ -1,9 +1,9 @@
-package com.shanejansen.mvptest.mainactivity;
+package com.shanejansen.mvptest.ui.mainactivity;
 
 import android.support.v4.app.Fragment;
 import com.shanejansen.mvptest.R;
-import com.shanejansen.mvptest.common.AppFragmentActivity;
-import com.shanejansen.mvptest.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.common.AppFragmentActivity;
+import com.shanejansen.mvptest.ui.mvpexample.MvpExampleFragment;
 
 /**
  * Created by Shane Jansen on 11/29/16.

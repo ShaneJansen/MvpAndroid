@@ -1,4 +1,6 @@
-package com.shanejansen.mvptest.mvpexample;
+package com.shanejansen.mvptest.ui.mvpexample;
+
+import com.shanejansen.mvptest.data.models.TestDatum;
 
 /**
  * Created by Shane Jansen on 1/16/17.
@@ -24,7 +26,7 @@ public interface MvpExample {
   interface ViewModelForPresenterOps {
     void loadData();
 
-    String getData();
+    TestDatum getData();
   }
 
   /**

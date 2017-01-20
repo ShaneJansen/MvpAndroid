@@ -1,16 +1,16 @@
-package com.shanejansen.mvptest.multifragmentactivity;
+package com.shanejansen.mvptest.ui.mainactivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import butterknife.Bind;
 import com.shanejansen.mvptest.R;
-import com.shanejansen.mvptest.common.AppBaseFragment;
+import com.shanejansen.mvptest.ui.common.AppBaseFragment;
 
 /**
  * Created by Shane Jansen on 12/13/16.
  */
-public class Multi2Fragment extends AppBaseFragment {
+public class SecondFragment extends AppBaseFragment {
   @Bind(R.id.tv) TextView mTv;
 
   @Override protected int getLayoutResourceId() {
@@ -19,6 +19,6 @@ public class Multi2Fragment extends AppBaseFragment {
 
   @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
     super.onViewInflated(v, savedInstanceState);
-    mTv.setText(getResources().getString(R.string.fragment));
+    mTv.setText(getResources().getString(R.string.fragment_second));
   }
 }

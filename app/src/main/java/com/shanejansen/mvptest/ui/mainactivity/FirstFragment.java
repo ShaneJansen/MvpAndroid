@@ -1,14 +1,14 @@
-package com.shanejansen.mvptest.mainactivity;
+package com.shanejansen.mvptest.ui.mainactivity;
 
 import android.content.Intent;
 import butterknife.OnClick;
 import com.shanejansen.mvptest.R;
-import com.shanejansen.mvptest.common.AppBaseFragment;
-import com.shanejansen.mvptest.multifragmentactivity.MultiFragmentActivity;
-import com.shanejansen.mvptest.mvpexample.MvpExampleFragment;
-import com.shanejansen.mvptest.mvpexample.MvpExamplePresenter;
-import com.shanejansen.mvptest.mvpexample.MvpExampleViewModel;
-import com.shanejansen.mvptest.secondactivity.SecondActivity;
+import com.shanejansen.mvptest.ui.common.AppBaseFragment;
+import com.shanejansen.mvptest.ui.multifragmentactivity.MultiFragmentActivity;
+import com.shanejansen.mvptest.ui.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.mvpexample.MvpExamplePresenter;
+import com.shanejansen.mvptest.ui.mvpexample.MvpExampleViewModel;
+import com.shanejansen.mvptest.ui.secondactivity.SecondActivity;
 
 /**
  * Created by Shane Jansen on 12/13/16.

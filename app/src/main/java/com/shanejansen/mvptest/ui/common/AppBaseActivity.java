@@ -1,4 +1,4 @@
-package com.shanejansen.mvptest.common;
+package com.shanejansen.mvptest.ui.common;
 
 import android.os.Bundle;
 import butterknife.ButterKnife;

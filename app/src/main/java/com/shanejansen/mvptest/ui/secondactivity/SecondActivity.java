@@ -1,8 +1,8 @@
-package com.shanejansen.mvptest.secondactivity;
+package com.shanejansen.mvptest.ui.secondactivity;
 
 import android.os.Bundle;
 import com.shanejansen.mvptest.R;
-import com.shanejansen.mvptest.common.AppBaseActivity;
+import com.shanejansen.mvptest.ui.common.AppBaseActivity;
 
 /**
  * Created by Shane Jansen on 12/13/16.

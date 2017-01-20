@@ -1,4 +1,4 @@
-package com.shanejansen.mvptest.mvpexample;
+package com.shanejansen.mvptest.ui.mvpexample;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +10,7 @@ import butterknife.Bind;
 import butterknife.OnClick;
 import com.shanejansen.mvpandroid.mvp.BaseView;
 import com.shanejansen.mvptest.R;
-import com.shanejansen.mvptest.common.AppMvpFragment;
+import com.shanejansen.mvptest.ui.common.AppMvpFragment;
 
 /**
  * Created by Shane Jansen on 1/16/17.
