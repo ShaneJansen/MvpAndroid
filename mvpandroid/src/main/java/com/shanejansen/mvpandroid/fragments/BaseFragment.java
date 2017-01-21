@@ -86,6 +86,23 @@ public abstract class BaseFragment extends Fragment {
   }
 
   /**
+   * Returns this Fragment's Interface which is implemented by the parent. The parent could be an
+   * Activity or it could be another Fragment.
+   *
+   * @return this Fragment's Interface which is implemented by the parent
+   */
+  protected <T> T getParentInterface(Class<T> clazz) {
+    Object parent = getParentFragment();
+    if (parent == null) parent = getActivity();
+    try {
+      return clazz.cast(parent);
+    } catch (ClassCastException e) {
+      throw new ClassCastException(
+          parent.getClass().getSimpleName() + " must implement " + clazz.getSimpleName());
+    }
+  }
+
+  /**
    * Returns the TransactionHandler for this Fragment. The TransactionHandler is a gateway to
    * communicate with the parent Activity.
    *

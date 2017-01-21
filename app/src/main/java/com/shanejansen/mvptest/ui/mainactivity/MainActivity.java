@@ -8,7 +8,8 @@ import com.shanejansen.mvptest.ui.mvpexample.MvpExampleFragment;
 /**
  * Created by Shane Jansen on 11/29/16.
  */
-public class MainActivity extends AppFragmentActivity {
+public class MainActivity extends AppFragmentActivity
+    implements MvpExampleFragment.MvpExampleFragmentInf {
   public final static int MAIN_CONTAINER = R.id.flFragmentContainer;
 
   @Override protected int getMainFragmentContainerResourceId() {

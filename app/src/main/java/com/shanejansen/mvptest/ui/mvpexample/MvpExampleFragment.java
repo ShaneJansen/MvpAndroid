@@ -18,8 +18,10 @@ import com.shanejansen.mvptest.ui.common.AppMvpFragment;
 public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForViewOps>
     implements MvpExample.ViewForPresenterOps {
   @Bind(R.id.tvData) TextView mTvData;
+  private MvpExampleFragmentInf mMvpExampleFragmentInf;
 
   @Override protected BaseView getMvpView() {
+    mMvpExampleFragmentInf = getParentInterface(MvpExampleFragmentInf.class);
     return this;
   }
 
@@ -37,6 +39,7 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
 
   @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
     super.onViewInflated(v, savedInstanceState);
+    mMvpExampleFragmentInf = getParentInterface(MvpExampleFragmentInf.class);
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,5 +57,14 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
 
   @Override public void onDestroyView() {
     super.onDestroyView();
+  }
+
+  public interface MvpExampleFragmentInf {
+    /*
+      This is where you would define callback from this Fragment to the hosting Activity or
+      Fragment. The hosting Activity or Fragment would define some specific operations for this
+      Fragment in order to make it re-usable. For example, if this Fragment was a list, we would
+      have a method here to define what happens when a list item is clicked.
+     */
   }
 }
