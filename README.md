@@ -11,7 +11,7 @@ The Models, Views, and Presenters are all loosely bound which allows
 them to be reused and interchanged easily.  In the example application
 we use the following code to add a new MVP Fragment to a parent View:
 
-```
+```java
 MvpExampleFragment mvpExampleFragment = new MvpExampleFragment();
 mvpExampleFragment.bindPresenter(new MvpExamplePresenter());
 mvpExampleFragment.bindViewModel(new MvpExampleViewModel());
@@ -39,7 +39,7 @@ the MVP Fragment is destroyed for a reason other than user
 navigation, such as an orientation change or if the OS is low on
 memory, the MVP Fragment’s Presenter and ViewModel will be persisted
 to a PresenterMaintainer.  When the MVP Fragment is recreated by its
-parent Activity, The persisted Presenter will automatically be re-bound
+parent Activity, the persisted Presenter will automatically be re-bound
 to the View.
 
 ## Gradle
