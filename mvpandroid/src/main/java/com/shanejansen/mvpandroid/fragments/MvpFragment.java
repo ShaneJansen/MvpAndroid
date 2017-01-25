@@ -18,6 +18,7 @@ import com.shanejansen.mvpandroid.mvp.PresenterMaintainer;
  * done here.
  */
 public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
+  private boolean mIsPersisting;
   private P mPresenter;
 
   /**
@@ -54,12 +55,13 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
 
   @SuppressWarnings("unchecked") @Override public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
+    mIsPersisting = true;
     PresenterMaintainer.getInstance().savePresenter(mPresenter, outState);
   }
 
   @Override public void onDestroy() {
     super.onDestroy();
-    ((BasePresenter) mPresenter).unbind(getActivity().isChangingConfigurations());
+    ((BasePresenter) mPresenter).unbind(mIsPersisting);
   }
 
   @Override public Context getAppContext() {

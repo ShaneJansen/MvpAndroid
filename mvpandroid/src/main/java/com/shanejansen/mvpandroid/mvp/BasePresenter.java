@@ -60,12 +60,12 @@ public abstract class BasePresenter<V, M> {
   /**
    * Unbinds the view and view model from this presenter.
    *
-   * @param isConfigurationChange True if we are unbinding because of a configuration change
+   * @param isPersisting True if we are persisting the MVP
    */
-  public void unbind(boolean isConfigurationChange) {
+  public void unbind(boolean isPersisting) {
     mView = null;
-    ((BaseViewModel) mViewModel).unbind(isConfigurationChange);
-    if (!isConfigurationChange) mViewModel = null;
+    ((BaseViewModel) mViewModel).unbind(isPersisting);
+    if (!isPersisting) mViewModel = null;
   }
 
   /**
@@ -86,7 +86,7 @@ public abstract class BasePresenter<V, M> {
     return mViewModel != null;
   }
 
-  protected V view() throws NullPointerException {
+  protected V view() {
     if (mView != null) {
       return mView.get();
     } else {

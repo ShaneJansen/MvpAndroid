@@ -25,10 +25,10 @@ public abstract class BaseViewModel<P> implements LoadingHandler {
   /**
    * Unbints the presenter from this view model.
    *
-   * @param isConfigurationChange True if we are unbinding because of a configuration change
+   * @param isPersisting True if we are persisting the MVP
    */
-  public void unbind(boolean isConfigurationChange) {
-    if (!isConfigurationChange) mPresenter = null;
+  public void unbind(boolean isPersisting) {
+    if (!isPersisting) mPresenter = null;
   }
 
   /**

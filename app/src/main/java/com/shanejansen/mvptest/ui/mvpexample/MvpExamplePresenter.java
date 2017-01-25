@@ -18,10 +18,16 @@ public class MvpExamplePresenter
   }
 
   @Override public void onLoadedData() {
-    view().setDataText(viewModel().getData().getText());
+    if (viewExists()) {
+      view().setDataText(viewModel().getData().getText());
+    }
   }
 
   @Override public void clickedLoadData() {
     viewModel().loadData();
+  }
+
+  @Override public void clickSwitchActivities() {
+    view().switchActivities();
   }
 }

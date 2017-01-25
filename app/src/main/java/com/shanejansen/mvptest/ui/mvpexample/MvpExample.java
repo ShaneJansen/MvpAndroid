@@ -11,6 +11,8 @@ public interface MvpExample {
    */
   interface ViewForPresenterOps {
     void setDataText(String data);
+
+    void switchActivities();
   }
 
   /**
@@ -18,6 +20,8 @@ public interface MvpExample {
    */
   interface PresenterForViewOps {
     void clickedLoadData();
+
+    void clickSwitchActivities();
   }
 
   /**

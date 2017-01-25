@@ -1,9 +1,11 @@
 package com.shanejansen.mvptest.ui.mainactivity;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppFragmentActivity;
 import com.shanejansen.mvptest.ui.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.secondactivity.SecondActivity;
 
 /**
  * Created by Shane Jansen on 11/29/16.
@@ -36,4 +38,10 @@ public class MainActivity extends AppFragmentActivity
   @Override protected int getToolbarResourceId() {
     return R.id.toolbar;
   }
+
+  //region MvpExampleFragmentInf
+  @Override public void switchActivities() {
+    startActivity(new Intent(this, SecondActivity.class));
+  }
+  //endregion
 }

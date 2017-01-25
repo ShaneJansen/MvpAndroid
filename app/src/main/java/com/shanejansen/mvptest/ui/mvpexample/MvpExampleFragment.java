@@ -33,8 +33,16 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
     mTvData.setText(data);
   }
 
+  @Override public void switchActivities() {
+    mMvpExampleFragmentInf.switchActivities();
+  }
+
   @OnClick(R.id.btnLoadData) void btnLoadDataClicked() {
     presenter().clickedLoadData();
+  }
+
+  @OnClick(R.id.btnSwitchActivities) void btnSwitchActivitiesClicked() {
+    presenter().clickSwitchActivities();
   }
 
   @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
@@ -47,18 +55,6 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
     return super.onCreateView(inflater, container, savedInstanceState);
   }
 
-  @Override public void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-  }
-
-  @Override public void onDestroy() {
-    super.onDestroy();
-  }
-
-  @Override public void onDestroyView() {
-    super.onDestroyView();
-  }
-
   public interface MvpExampleFragmentInf {
     /*
       This is where you would define callback from this Fragment to the hosting Activity or
@@ -66,5 +62,6 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
       Fragment in order to make it re-usable. For example, if this Fragment was a list, we would
       have a method here to define what happens when a list item is clicked.
      */
+    void switchActivities();
   }
 }
