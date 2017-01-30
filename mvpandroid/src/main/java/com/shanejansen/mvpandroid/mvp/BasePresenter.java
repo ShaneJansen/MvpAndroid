@@ -9,7 +9,7 @@ import java.lang.ref.WeakReference;
  *
  * Building block for presenters in the MVP architecture.
  */
-public abstract class BasePresenter<V, M> {
+public abstract class BasePresenter<V extends BaseView, M extends BaseViewModel> {
   private boolean mInitialized;
   private WeakReference<V> mView;
   private M mViewModel;
@@ -64,7 +64,7 @@ public abstract class BasePresenter<V, M> {
    */
   public void unbind(boolean isPersisting) {
     mView = null;
-    ((BaseViewModel) mViewModel).unbind(isPersisting);
+    mViewModel.unbind(isPersisting);
     if (!isPersisting) mViewModel = null;
   }
 
@@ -114,7 +114,7 @@ public abstract class BasePresenter<V, M> {
    */
   protected Context getAppContext() {
     try {
-      return ((BaseView) view()).getAppContext();
+      return view().getAppContext();
     } catch (NullPointerException e) {
       return null;
     }
@@ -127,7 +127,7 @@ public abstract class BasePresenter<V, M> {
    */
   protected Activity getActivity() {
     try {
-      return ((BaseView) view()).getActivity();
+      return view().getActivity();
     } catch (NullPointerException e) {
       return null;
     }

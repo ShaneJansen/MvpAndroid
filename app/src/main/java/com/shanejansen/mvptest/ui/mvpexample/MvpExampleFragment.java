@@ -9,6 +9,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.shanejansen.mvpandroid.mvp.BaseView;
+import com.shanejansen.mvpandroid.mvp.BaseViewModel;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppMvpFragment;
 
@@ -21,7 +22,6 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
   private MvpExampleFragmentInf mMvpExampleFragmentInf;
 
   @Override protected BaseView getMvpView() {
-    mMvpExampleFragmentInf = getParentInterface(MvpExampleFragmentInf.class);
     return this;
   }
 
@@ -53,6 +53,14 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     return super.onCreateView(inflater, container, savedInstanceState);
+  }
+
+  @Override public MvpExample.PresenterForViewOps getMvpPresenter() {
+    return null;
+  }
+
+  @Override public <M extends BaseViewModel> M getMvpViewModel() {
+    return null;
   }
 
   public interface MvpExampleFragmentInf {

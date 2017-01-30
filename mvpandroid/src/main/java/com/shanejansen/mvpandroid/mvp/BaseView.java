@@ -8,7 +8,19 @@ import android.content.Context;
  *
  * Building block for views in the MVP architecture.
  */
-public interface BaseView {
+public interface BaseView<P extends BasePresenter> {
+
+  /**
+   * Used to get the MVP view.
+   *
+   * @return The MVP view
+   */
+  <V extends BaseView> V getMvpView();
+
+  P getMvpPresenter();
+
+  <M extends BaseViewModel> M getMvpViewModel();
+
   /**
    * Returns the Application's Context.
    *

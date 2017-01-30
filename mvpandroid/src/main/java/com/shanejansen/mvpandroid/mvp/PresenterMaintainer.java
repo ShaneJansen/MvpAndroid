@@ -11,7 +11,7 @@ import java.util.concurrent.atomic.AtomicLong;
  *
  * Singleton used to maintain/preserve Presenters when an Activity is destroyed.
  */
-public class PresenterMaintainer<P> {
+public class PresenterMaintainer<P extends BasePresenter> {
   private static final String KEY_PRESENTER_ID = "presenter_id";
 
   private static PresenterMaintainer mInstance;
