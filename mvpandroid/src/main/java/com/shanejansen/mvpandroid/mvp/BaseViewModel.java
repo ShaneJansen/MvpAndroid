@@ -7,7 +7,7 @@ import com.shanejansen.mvpandroid.handlers.LoadingHandler;
  *
  * Building block for view models in the MVP architecture.
  */
-public abstract class BaseViewModel<P extends BasePresenter> implements LoadingHandler {
+public abstract class BaseViewModel<P> implements LoadingHandler {
   private P mPresenter;
 
   public BaseViewModel() {

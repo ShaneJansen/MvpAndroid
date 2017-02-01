@@ -6,8 +6,6 @@ import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppBaseFragment;
 import com.shanejansen.mvptest.ui.multifragmentactivity.MultiFragmentActivity;
 import com.shanejansen.mvptest.ui.mvpexample.MvpExampleFragment;
-import com.shanejansen.mvptest.ui.mvpexample.MvpExamplePresenter;
-import com.shanejansen.mvptest.ui.mvpexample.MvpExampleViewModel;
 import com.shanejansen.mvptest.ui.secondactivity.SecondActivity;
 
 /**
@@ -24,8 +22,6 @@ public class FirstFragment extends AppBaseFragment {
 
   @OnClick(R.id.btnAddMvpFragment) void btnAddMvpFragmentClicked() {
     MvpExampleFragment mvpExampleFragment = new MvpExampleFragment();
-    mvpExampleFragment.bindPresenter(new MvpExamplePresenter());
-    mvpExampleFragment.bindViewModel(new MvpExampleViewModel());
     getTransactionHandler().addFragment(mvpExampleFragment, MainActivity.MAIN_CONTAINER, true);
   }
 

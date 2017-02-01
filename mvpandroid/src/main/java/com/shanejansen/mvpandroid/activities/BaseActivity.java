@@ -14,7 +14,6 @@ import com.shanejansen.mvpandroid.R;
  */
 public abstract class BaseActivity extends AppCompatActivity {
   private boolean mIsTablet;
-  private boolean mIsActive;
 
   /**
    * Used to get the layout resource id for this activity.
@@ -56,23 +55,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     if (getResources().getBoolean(R.bool.isTablet)) mIsTablet = true;
   }
 
-  @Override protected void onPause() {
-    super.onStart();
-    mIsActive = false;
-  }
-
-  @Override protected void onResume() {
-    super.onStop();
-    mIsActive = true;
-  }
-
-  /**
-   * Returns true if this Activity's view is currently displayed.
-   *
-   * @return true if this Activity's view is currently displayed
-   */
-  public boolean isActive() {
-    return mIsActive;
+  @Override public boolean onSupportNavigateUp() {
+    finish();
+    return true;
   }
 
   /**

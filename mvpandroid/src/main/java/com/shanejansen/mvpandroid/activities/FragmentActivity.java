@@ -52,6 +52,10 @@ public abstract class FragmentActivity extends BaseActivity
     if (!mDidRecreate) addInitialFragments();
   }
 
+  @Override protected void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+  }
+
   @Override public void onAttachFragment(Fragment fragment) {
     super.onAttachFragment(fragment);
     setActionBarTitle(fragment);

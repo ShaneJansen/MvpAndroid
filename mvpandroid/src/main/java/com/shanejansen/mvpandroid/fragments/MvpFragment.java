@@ -17,15 +17,18 @@ import com.shanejansen.mvpandroid.mvp.PresenterMaintainer;
  * Building block for Fragments using the MVP architecture. All binding for the MVP architecture is
  * done here.
  */
-public abstract class MvpFragment<P extends BasePresenter> extends BaseFragment
-    implements BaseView<P> {
+public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
   private boolean mIsPersisting;
   private P mPresenter;
+
+  @Override public MvpFragment getMvpView() {
+    return this;
+  }
 
   @SuppressWarnings("unchecked") @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     if (savedInstanceState == null) {
-      bindMvp();
+      initialMvpBind();
     } else {
       mPresenter = (P) PresenterMaintainer.getInstance().restorePresenter(savedInstanceState);
       /*
@@ -33,44 +36,40 @@ public abstract class MvpFragment<P extends BasePresenter> extends BaseFragment
         have killed the Application process destroying the PresenterMaintainer.
        */
       if (mPresenter != null) {
-        mPresenter.bindView(getMvpView());
+        ((BasePresenter) mPresenter).bindView(getMvpView());
       } else {
-        bindMvp();
+        initialMvpBind();
       }
     }
-  }
-
-  @Override public <V extends BaseView> V getMvpView() {
-    return this;
   }
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
     View v = super.onCreateView(inflater, container, savedInstanceState);
-    mPresenter.viewReady();
+    ((BasePresenter) mPresenter).viewReady();
     return v;
   }
 
   @SuppressWarnings("unchecked") @Override public void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     mIsPersisting = true;
-    PresenterMaintainer.getInstance().savePresenter(mPresenter, outState);
+    PresenterMaintainer.getInstance().savePresenter((BasePresenter) mPresenter, outState);
   }
 
   @Override public void onDestroy() {
     super.onDestroy();
-    mPresenter.unbind(mIsPersisting);
+    ((BasePresenter) mPresenter).unbind(mIsPersisting);
   }
 
   @Override public Context getAppContext() {
     return super.getAppContext();
   }
 
-  @SuppressWarnings("unchecked") private void bindMvp() {
-    mPresenter = getMvpPresenter();
+  @SuppressWarnings("unchecked") private void initialMvpBind() {
+    mPresenter = (P) getMvpPresenter();
     BaseViewModel viewModel = getMvpViewModel();
-    mPresenter.bindView(getMvpView());
-    mPresenter.bindViewModel(viewModel);
+    ((BasePresenter) mPresenter).bindView(getMvpView());
+    ((BasePresenter) mPresenter).bindViewModel(viewModel);
     viewModel.bindPresenter(mPresenter);
   }
 
