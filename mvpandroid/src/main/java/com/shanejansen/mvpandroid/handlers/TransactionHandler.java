@@ -16,26 +16,26 @@ public interface TransactionHandler {
   boolean isTablet();
 
   /**
-   * Add a new fragment to the current Activity.
+   * Add a new Fragment to the current Activity.
    *
    * @param fragment Fragment to add
-   * @param containerId Id of the fragment's container
-   * @param shouldAddToBackStack True if the fragment should be added to the back stack
-   * @param tag Used when the fragment is added to the FragmentManager
+   * @param containerId Id of the Fragment's container
+   * @param shouldAddToBackStack True if the Fragment should be added to the back stack
+   * @param tag Used when the Fragment is added to the FragmentManager
    */
   void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack, String tag);
 
   /**
-   * Add a new fragment to the current Activity.
+   * Add a new Fragment to the current Activity.
    *
    * @param fragment Fragment to add
-   * @param containerId Id of the fragment's container
-   * @param shouldAddToBackStack True if the fragment should be added to the back stack
+   * @param containerId Id of the Fragment's container
+   * @param shouldAddToBackStack True if the Fragment should be added to the back stack
    */
   void addFragment(Fragment fragment, int containerId, boolean shouldAddToBackStack);
 
   /**
-   * Removes the curent fragment from the Activity.
+   * Removes the current Fragment from the Activity.
    * Modifies the back stack.
    */
   void removeCurrentFragment();

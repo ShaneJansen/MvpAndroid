@@ -3,6 +3,8 @@ package com.shanejansen.mvpandroid.fragments;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,13 +58,46 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
     PresenterMaintainer.getInstance().savePresenter((BasePresenter) mPresenter, outState);
   }
 
-  @Override public void onDestroy() {
-    super.onDestroy();
+  @Override public void onDestroyView() {
     ((BasePresenter) mPresenter).unbind(mIsPersisting);
+    super.onDestroyView();
   }
 
   @Override public Context getAppContext() {
     return super.getAppContext();
+  }
+
+  /**
+   * Add a new Fragment to the current Fragment. No option to add to back stack because I can't
+   * think of a reason to have a back stack for a nested Fragment (why not add to Activity if a
+   * back stack is needed?
+   *
+   * @param fragment Fragment to add
+   * @param containerId Id of the Fragment's container
+   * @param shouldAnimate True if the Fragment should be added with an animation
+   * @param tag Used when the Fragment is added to the FragmentManager
+   */
+  public void addFragment(Fragment fragment, int containerId, boolean shouldAnimate, String tag) {
+    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+    if (shouldAnimate) {
+      transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+          android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+    transaction.replace(containerId, fragment, tag);
+    transaction.commit();
+  }
+
+  /**
+   * Add a new Fragment to the current Fragment. No option to add to back stack because I can't
+   * think of a reason to have a back stack for a nested Fragment (why not add to Activity if a
+   * back stack is needed?
+   *
+   * @param fragment Fragment to add
+   * @param containerId Id of the Fragment's container
+   * @param shouldAnimate True if the Fragment should be added with an animation
+   */
+  public void addFragment(Fragment fragment, int containerId, boolean shouldAnimate) {
+    addFragment(fragment, containerId, shouldAnimate, fragment.getClass().getName());
   }
 
   @SuppressWarnings("unchecked") private void initialMvpBind() {
