@@ -8,4 +8,10 @@
   <string name="multi_fragment_activity">Multi-Fragment Activity</string>
   <string name="add_mvp_fragment">Add MVP Fragment</string>
   <string name="load_data">Load Data</string>
+  <string name="application_structure">Application Structure</string>
+  <string name="application_views">Application Views</string>
+  <string name="simple_recycler_example">Simple Recycler Example</string>
+  <string name="sectioned_recycler_example">Sectioned Recycler Example</string>
+  <string name="text">text</string>
+  <string name="id">id</string>
 </resources>

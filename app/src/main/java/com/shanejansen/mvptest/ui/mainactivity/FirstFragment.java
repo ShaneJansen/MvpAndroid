@@ -21,8 +21,8 @@ public class FirstFragment extends AppBaseFragment {
   }
 
   @OnClick(R.id.btnAddMvpFragment) void btnAddMvpFragmentClicked() {
-    MvpExampleFragment mvpExampleFragment = new MvpExampleFragment();
-    getTransactionHandler().addFragment(mvpExampleFragment, MainActivity.MAIN_CONTAINER, true);
+    getTransactionHandler().addFragment(new MvpExampleFragment(), MainActivity.MAIN_CONTAINER,
+        true);
   }
 
   @OnClick(R.id.btnSwitchActivities) void btnSwitchActivitiesClicked() {
@@ -31,5 +31,15 @@ public class FirstFragment extends AppBaseFragment {
 
   @OnClick(R.id.btnMultiFragmentActivity) void btnMultiFragmentActivityClicked() {
     startActivity(new Intent(getAppContext(), MultiFragmentActivity.class));
+  }
+
+  @OnClick(R.id.btnSimpleRecyclerExample) void btnSimpleRecyclerExampleClicked() {
+    getTransactionHandler().addFragment(new SimpleRecyclerFragment(), MainActivity.MAIN_CONTAINER,
+        true);
+  }
+
+  @OnClick(R.id.btnSectionedRecyclerExample) void btnSectionedRecyclerExampleClicked() {
+    getTransactionHandler().addFragment(new SectionedRecyclerFragment(),
+        MainActivity.MAIN_CONTAINER, true);
   }
 }
