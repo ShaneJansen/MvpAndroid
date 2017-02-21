@@ -56,9 +56,9 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
     PresenterMaintainer.getInstance().savePresenter((BasePresenter) mPresenter, outState);
   }
 
-  @Override public void onDestroy() {
-    super.onDestroy();
+  @Override public void onDestroyView() {
     ((BasePresenter) mPresenter).unbind(mIsPersisting);
+    super.onDestroyView();
   }
 
   @Override public Context getAppContext() {

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +18,6 @@ import com.shanejansen.mvpandroid.handlers.TransactionHandler;
  */
 public abstract class BaseFragment extends Fragment {
   private TransactionHandler mTransactionHandler;
-  private boolean mIsActive;
   private boolean mDidRecreate;
 
   /**
@@ -42,24 +42,42 @@ public abstract class BaseFragment extends Fragment {
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    mIsActive = true;
     View v = inflater.inflate(getLayoutResourceId(), container, false);
     onViewInflated(v, savedInstanceState);
     return v;
   }
 
-  @Override public void onDestroyView() {
-    super.onDestroyView();
-    mIsActive = false;
+  /**
+   * Add a new Fragment to the current Fragment. No option to add to back stack because I can't
+   * think of a reason to have a back stack for a nested Fragment (why not add to Activity if a
+   * back stack is needed?
+   *
+   * @param fragment Fragment to add
+   * @param containerId Id of the Fragment's container
+   * @param shouldAnimate True if the Fragment should be added with an animation
+   * @param tag Used when the Fragment is added to the FragmentManager
+   */
+  public void addFragment(Fragment fragment, int containerId, boolean shouldAnimate, String tag) {
+    FragmentTransaction transaction = getChildFragmentManager().beginTransaction();
+    if (shouldAnimate) {
+      transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out,
+          android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+    transaction.replace(containerId, fragment, tag);
+    transaction.commit();
   }
 
   /**
-   * Returns true if this Fragment's view is currently displayed.
+   * Add a new Fragment to the current Fragment. No option to add to back stack because I can't
+   * think of a reason to have a back stack for a nested Fragment (why not add to Activity if a
+   * back stack is needed?
    *
-   * @return true if this Fragment's view is currently displayed
+   * @param fragment Fragment to add
+   * @param containerId Id of the Fragment's container
+   * @param shouldAnimate True if the Fragment should be added with an animation
    */
-  public boolean isActive() {
-    return mIsActive;
+  public void addFragment(Fragment fragment, int containerId, boolean shouldAnimate) {
+    addFragment(fragment, containerId, shouldAnimate, fragment.getClass().getName());
   }
 
   /**
