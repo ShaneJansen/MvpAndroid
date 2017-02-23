@@ -10,9 +10,11 @@ import java.util.List;
  */
 public abstract class SectionedRecyclerAdapter<T>
     extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-  private List<Section> mSections;
+  private static final int TYPE_SECTION = 0;
+  private static final int TYPE_ITEM = 1;
+  private List<Section<T>> mSections;
 
-  public SectionedRecyclerAdapter(List<Section> sections) {
+  public SectionedRecyclerAdapter(List<Section<T>> sections) {
     mSections = sections;
   }
 
@@ -26,7 +28,8 @@ public abstract class SectionedRecyclerAdapter<T>
   }
 
   @Override public int getItemViewType(int position) {
-    return super.getItemViewType(position);
+    getSectionIndices();
+    return 0;
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -38,7 +41,20 @@ public abstract class SectionedRecyclerAdapter<T>
   }
 
   private int sectionPositionToAbsolutePosition(int position) {
+    return 0;
+  }
 
+  private int[] getSectionIndices() {
+    int[] sectionIndices = new int[mSections.size()];
+    for (int i = 0; i < mSections.size(); i++) {
+      int itemsBefore = 0;
+      for (int j = 0; j < i; j++) {
+        itemsBefore +=
+            mSections.get(j).getData().size() + 1; // Section before plus 1 for the section itself
+      }
+      sectionIndices[i] = itemsBefore;
+    }
+    return sectionIndices;
   }
 
   static class SectionViewHolder extends RecyclerView.ViewHolder {

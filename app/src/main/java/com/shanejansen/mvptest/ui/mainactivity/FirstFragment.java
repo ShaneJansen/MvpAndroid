@@ -39,7 +39,7 @@ public class FirstFragment extends AppBaseFragment {
   }
 
   @OnClick(R.id.btnSectionedRecyclerExample) void btnSectionedRecyclerExampleClicked() {
-    getTransactionHandler().addFragment(new SectionedRecyclerFragment(),
-        MainActivity.MAIN_CONTAINER, true);
+    /*getTransactionHandler().addFragment(new SectionedRecyclerFragment(),
+        MainActivity.MAIN_CONTAINER, true);*/
   }
 }
