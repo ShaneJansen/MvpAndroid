@@ -1,8 +1,11 @@
 package com.shanejansen.mvpandroid.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import com.google.common.primitives.Ints;
 import java.util.List;
 
 /**
@@ -13,9 +16,21 @@ public abstract class SectionedRecyclerAdapter<T>
   private static final int TYPE_SECTION = 0;
   private static final int TYPE_ITEM = 1;
   private List<Section<T>> mSections;
+  private int[] mSectionIndices;
+  private Context mContext;
+  private LayoutInflater mLayoutInflater;
 
-  public SectionedRecyclerAdapter(List<Section<T>> sections) {
+  abstract int getItemLayoutId();
+
+  abstract int getHeaderLayoutId();
+
+  abstract
+
+  public SectionedRecyclerAdapter(Context context, List<Section<T>> sections) {
     mSections = sections;
+    mContext = context;
+    mLayoutInflater = LayoutInflater.from(mContext);
+    setSectionIndices();
   }
 
   @Override public int getItemCount() {
@@ -28,12 +43,15 @@ public abstract class SectionedRecyclerAdapter<T>
   }
 
   @Override public int getItemViewType(int position) {
-    getSectionIndices();
-    return 0;
+    if (Ints.contains(mSectionIndices, position)) {
+      return TYPE_SECTION;
+    } else {
+      return TYPE_ITEM;
+    }
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    return null;
+    View v = m
   }
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -44,17 +62,16 @@ public abstract class SectionedRecyclerAdapter<T>
     return 0;
   }
 
-  private int[] getSectionIndices() {
-    int[] sectionIndices = new int[mSections.size()];
+  private void setSectionIndices() {
+    mSectionIndices = new int[mSections.size()];
     for (int i = 0; i < mSections.size(); i++) {
       int itemsBefore = 0;
       for (int j = 0; j < i; j++) {
         itemsBefore +=
             mSections.get(j).getData().size() + 1; // Section before plus 1 for the section itself
       }
-      sectionIndices[i] = itemsBefore;
+      mSectionIndices[i] = itemsBefore;
     }
-    return sectionIndices;
   }
 
   static class SectionViewHolder extends RecyclerView.ViewHolder {
