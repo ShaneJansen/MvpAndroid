@@ -19,7 +19,7 @@ import java.util.List;
 public class SimpleRecyclerFragment extends AppBaseFragment {
   @Bind(R.id.rvRecycler) RecyclerView mRvRecycler;
   private int mCurrentId;
-  private List<TestDatum> mTestDatum;
+  private List<TestDatum> mTestData;
   private TestDatumAdapter mTestDatumAdapter;
 
   @Override protected int getLayoutResourceId() {
@@ -29,14 +29,14 @@ public class SimpleRecyclerFragment extends AppBaseFragment {
   @Override public void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     mCurrentId = 0;
-    mTestDatum = new ArrayList<>();
-    mTestDatum.add(new TestDatum(++mCurrentId, "Initial"));
-    mTestDatum.add(new TestDatum(++mCurrentId, "Initial"));
-    mTestDatum.add(new TestDatum(++mCurrentId, "Initial"));
+    mTestData = new ArrayList<>();
+    mTestData.add(new TestDatum(++mCurrentId, "Initial"));
+    mTestData.add(new TestDatum(++mCurrentId, "Initial"));
+    mTestData.add(new TestDatum(++mCurrentId, "Initial"));
     mTestDatumAdapter =
-        new TestDatumAdapter(getContext(), mTestDatum, new TestDatumAdapter.TestDatumAdapterInf() {
+        new TestDatumAdapter(getContext(), mTestData, new TestDatumAdapter.TestDatumAdapterInf() {
           @Override public void onItemClick(int position) {
-            mTestDatum.remove(position);
+            mTestData.remove(position);
             mTestDatumAdapter.notifyItemRemoved(position);
           }
         });
@@ -50,25 +50,25 @@ public class SimpleRecyclerFragment extends AppBaseFragment {
   }
 
   @OnClick(R.id.fbAdd) void onClickFbAdd() {
-    mTestDatum.add(0, new TestDatum(++mCurrentId, "Added to Beginning"));
+    mTestData.add(0, new TestDatum(++mCurrentId, "Added to Beginning"));
     mTestDatumAdapter.notifyItemInserted(0);
     mRvRecycler.scrollToPosition(0);
   }
 
   @OnClick(R.id.fbAddListBeginning) void onClickFbAddListBeginning() {
-    mTestDatum.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
-    mTestDatum.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
-    mTestDatum.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
+    mTestData.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
+    mTestData.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
+    mTestData.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
     mTestDatumAdapter.notifyItemRangeInserted(0, 3);
     mRvRecycler.scrollToPosition(0);
   }
 
   @OnClick(R.id.fbAddListEnd) void onClickFbAddListEnd() {
-    int oldSize = mTestDatum.size();
-    mTestDatum.add(new TestDatum(++mCurrentId, "Added List to End"));
-    mTestDatum.add(new TestDatum(++mCurrentId, "Added List to End"));
-    mTestDatum.add(new TestDatum(++mCurrentId, "Added List to End"));
+    int oldSize = mTestData.size();
+    mTestData.add(new TestDatum(++mCurrentId, "Added List to End"));
+    mTestData.add(new TestDatum(++mCurrentId, "Added List to End"));
+    mTestData.add(new TestDatum(++mCurrentId, "Added List to End"));
     mTestDatumAdapter.notifyItemRangeInserted(oldSize, 3);
-    mRvRecycler.scrollToPosition(mTestDatum.size() - 1);
+    mRvRecycler.scrollToPosition(mTestData.size() - 1);
   }
 }

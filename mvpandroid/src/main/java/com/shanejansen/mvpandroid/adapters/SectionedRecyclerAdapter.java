@@ -2,10 +2,11 @@ package com.shanejansen.mvpandroid.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.google.common.primitives.Ints;
+import android.widget.TextView;
 import java.util.List;
 
 /**
@@ -15,68 +16,115 @@ public abstract class SectionedRecyclerAdapter<T>
     extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private static final int TYPE_SECTION = 0;
   private static final int TYPE_ITEM = 1;
-  private List<Section<T>> mSections;
-  private int[] mSectionIndices;
-  private Context mContext;
+  private SparseArray<Section<T>> mSections;
   private LayoutInflater mLayoutInflater;
+  private int mSectionResourceId, mSectionTitleResourceId;
 
-  abstract int getItemLayoutId();
-
-  abstract int getHeaderLayoutId();
-
-  abstract
-
-  public SectionedRecyclerAdapter(Context context, List<Section<T>> sections) {
-    mSections = sections;
-    mContext = context;
-    mLayoutInflater = LayoutInflater.from(mContext);
-    setSectionIndices();
+  public SectionedRecyclerAdapter(Context context, int sectionResourceId,
+      int sectionTitleResourceId) {
+    mSections = new SparseArray<>();
+    mLayoutInflater = LayoutInflater.from(context);
+    mSectionResourceId = sectionResourceId;
+    mSectionTitleResourceId = sectionTitleResourceId;
   }
+
+  protected abstract RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent);
+
+  protected abstract void onBindItemViewHolder(RecyclerView.ViewHolder holder, T item);
 
   @Override public int getItemCount() {
     int count = 0;
-    count += mSections.size();
-    for (Section s : mSections) {
-      count += s.getData().size();
+    for (int i = 0; i < mSections.size(); i++) {
+      Section section = mSections.valueAt(i);
+      if (section.getData().size() != 0) {
+        ++count;
+        count += section.getData().size();
+      }
     }
     return count;
   }
 
   @Override public int getItemViewType(int position) {
-    if (Ints.contains(mSectionIndices, position)) {
-      return TYPE_SECTION;
-    } else {
-      return TYPE_ITEM;
-    }
+    return isSectionHeader(position) ? TYPE_SECTION : TYPE_ITEM;
   }
 
   @Override public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    View v = m
-  }
-
-  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
-  }
-
-  private int sectionPositionToAbsolutePosition(int position) {
-    return 0;
-  }
-
-  private void setSectionIndices() {
-    mSectionIndices = new int[mSections.size()];
-    for (int i = 0; i < mSections.size(); i++) {
-      int itemsBefore = 0;
-      for (int j = 0; j < i; j++) {
-        itemsBefore +=
-            mSections.get(j).getData().size() + 1; // Section before plus 1 for the section itself
-      }
-      mSectionIndices[i] = itemsBefore;
+    if (viewType == TYPE_SECTION) {
+      View view = mLayoutInflater.inflate(mSectionResourceId, parent, false);
+      return new SectionViewHolder(view, mSectionTitleResourceId);
+    } else {
+      return onCreateItemViewHolder(parent);
     }
   }
 
+  @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    if (isSectionHeader(position)) {
+      ((SectionViewHolder) holder).title.setText(mSections.get(position).getTitle());
+    } else {
+      onBindItemViewHolder(holder, positionToItem(position));
+    }
+  }
+
+  public void setSections(List<Section<T>> sections) {
+    mSections.clear();
+    for (int i = 0; i < sections.size(); i++) {
+      mSections.append(i, sections.get(i));
+    }
+    setSectionIndices();
+  }
+
+  public T positionToItem(int position) {
+    int numItem = 0;
+    for (int i = 0; i < mSections.size(); i++) {
+      ++numItem;
+      Section<T> section = mSections.valueAt(i);
+      for (int j = 0; j < section.getData().size(); j++) {
+        if (position == numItem) {
+          return section.getData().get(j);
+        }
+        ++numItem;
+      }
+    }
+    return null;
+  }
+
+  /*public T positionToItem(int position) {
+    int itemCount = 1; // +1 for header
+    for (int i = 0; i < mSections.size(); i++) {
+      Section<T> section = mSections.valueAt(i);
+      if (position <= section.getData().size() + itemCount - 1) {
+        return section.getData().get(position - itemCount);
+      }
+      itemCount += section.getData().size() + 1; // +1 for header
+    }
+    return null;
+  }*/
+
+  protected LayoutInflater getLayoutInflater() {
+    return mLayoutInflater;
+  }
+
+  private void setSectionIndices() {
+    SparseArray<Section<T>> temp = mSections.clone();
+    mSections.clear();
+    int offset = 0;
+    for (int i = 0; i < temp.size(); i++) {
+      Section<T> section = temp.valueAt(i);
+      mSections.append(offset, section);
+      offset += section.getData().size() + 1;
+    }
+  }
+
+  private boolean isSectionHeader(int position) {
+    return mSections.get(position) != null;
+  }
+
   static class SectionViewHolder extends RecyclerView.ViewHolder {
-    SectionViewHolder(View itemView) {
+    public TextView title;
+
+    SectionViewHolder(View itemView, int titleResourceId) {
       super(itemView);
+      title = (TextView) itemView.findViewById(titleResourceId);
     }
   }
 
