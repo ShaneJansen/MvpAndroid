@@ -2,7 +2,9 @@
   <string name="app_name">MVP Test</string>
   <string name="add_fragment">Add Fragment</string>
   <string name="switch_activities">Switch Activities</string>
-  <string name="activity_fragment_support">This is a standard Activity which does not support Fragments.</string>
+  <string name="activity_fragment_support">This is a standard Activity which does not support
+    Fragments.
+  </string>
   <string name="fragment_second">This is the second fragment.</string>
   <string name="fragment">This is a fragment.</string>
   <string name="multi_fragment_activity">Multi-Fragment Activity</string>
