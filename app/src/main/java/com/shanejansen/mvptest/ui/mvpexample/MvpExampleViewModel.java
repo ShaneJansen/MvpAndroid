@@ -16,7 +16,15 @@ public class MvpExampleViewModel extends BaseViewModel<MvpExample.PresenterForVi
   }
 
   @Override public void loadData() {
-    DataManager.getInstance().test().subscribe(data -> mTes);
+    DataManager.getInstance().getTestDatum(new DataManager.Response<TestDatum>() {
+      @Override public void success(TestDatum response, int httpCode) {
+        mTestDatum = response;
+        if (presenterExists()) presenter().onLoadedData();
+      }
+
+      @Override public void failure(String response, int httpCode) {
+      }
+    });
   }
 
   @Override public TestDatum getData() {

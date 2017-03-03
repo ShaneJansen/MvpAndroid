@@ -21,6 +21,10 @@
     <activity
         android:name=".ui.multifragmentactivity.MultiFragmentActivity"
         android:parentActivityName=".ui.mainactivity.MainActivity" />
+
+    <activity
+        android:name=".ui.rxjavaactivity.RxJavaActivity"
+        android:parentActivityName=".ui.mainactivity.MainActivity" />
   </application>
 
 </manifest>

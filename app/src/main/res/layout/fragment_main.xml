@@ -1,22 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent"
-    android:gravity="center" android:orientation="vertical">
-  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-      android:text="@string/application_structure" />
-  <Button android:id="@+id/btnAddFragment" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="@string/add_fragment" />
-  <Button android:id="@+id/btnAddMvpFragment" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="@string/add_mvp_fragment" />
-  <Button android:id="@+id/btnSwitchActivities" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="@string/switch_activities" />
-  <Button android:id="@+id/btnMultiFragmentActivity" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="@string/multi_fragment_activity" />
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/application_structure"
+      />
+  <Button
+      android:id="@+id/btnAddFragment"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/add_fragment"
+      />
+  <Button
+      android:id="@+id/btnAddMvpFragment"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/add_mvp_fragment"
+      />
+  <Button
+      android:id="@+id/btnSwitchActivities"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/switch_activities"
+      />
+  <Button
+      android:id="@+id/btnMultiFragmentActivity"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/multi_fragment_activity"
+      />
+  <Button
+      android:id="@+id/btnRxJava"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/rx_java"
+      />
 
-  <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-      android:layout_marginTop="15dp" android:text="@string/application_views" />
-  <Button android:id="@+id/btnSimpleRecyclerExample" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="@string/simple_recycler_example" />
-  <Button android:id="@+id/btnSectionedRecyclerExample" android:layout_width="wrap_content"
-      android:layout_height="wrap_content" android:text="@string/sectioned_recycler_example" />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="15dp"
+      android:text="@string/application_views"
+      />
+  <Button
+      android:id="@+id/btnSimpleRecyclerExample"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/simple_recycler_example"
+      />
+  <Button
+      android:id="@+id/btnSectionedRecyclerExample"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/sectioned_recycler_example"
+      />
 </LinearLayout>

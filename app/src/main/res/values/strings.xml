@@ -17,4 +17,5 @@
   <string name="text">text</string>
   <string name="id">id</string>
   <string name="title">Title</string>
+  <string name="rx_java">RxJava</string>
 </resources>

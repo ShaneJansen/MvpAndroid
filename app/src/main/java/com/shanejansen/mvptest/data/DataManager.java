@@ -4,8 +4,6 @@ import android.os.Handler;
 import android.os.Looper;
 import com.shanejansen.mvptest.data.models.TestDatum;
 import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -38,21 +36,18 @@ public class DataManager {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-
-      int id = mRandom.nextInt();
-      final TestDatum testDatum = new TestDatum(id, "This is datum number " + id);
-
       // Run on main thread
       Handler handler = new Handler(Looper.getMainLooper());
-      handler.post(() -> response.success(testDatum, DEFAULT_SUCCESS_STATUS));
+      handler.post(
+          () -> response.success(DataManager.this.createTestDatum(), DEFAULT_SUCCESS_STATUS));
     }).start();
   }
 
   public Observable<TestDatum> getTestDatumRx() {
-    int id = mRandom.nextInt();
-    final TestDatum testDatum = new TestDatum(id, "This is datum number " + id);
-
-    return
+    return Observable.create(e -> {
+      e.onNext(createTestDatum());
+      //e.onComplete(); // Don't call if you don't want to un-subscribe!
+    });
   }
 
   public void getTestData(final Response<List<TestDatum>> response) {
@@ -62,30 +57,29 @@ public class DataManager {
       } catch (InterruptedException e) {
         e.printStackTrace();
       }
-
-      final List<TestDatum> testData = new ArrayList<>();
-      for (int i = 0; i < mRandom.nextInt(20); i++) {
-        int id = mRandom.nextInt();
-        testData.add(new TestDatum(id, "This is datum number " + id));
-      }
-
       // Run on main thread
       Handler handler = new Handler(Looper.getMainLooper());
-      handler.post(() -> response.success(testData, DEFAULT_SUCCESS_STATUS));
+      handler.post(() -> response.success(createTestData(), DEFAULT_SUCCESS_STATUS));
     }).start();
   }
 
   public Observable<List<TestDatum>> getTestDataRx() {
+    return Observable.create(e -> {
+      e.onNext(createTestData());
+    });
+  }
+
+  private TestDatum createTestDatum() {
+    int id = mRandom.nextInt();
+    return new TestDatum(id, "This is datum number " + id);
+  }
+
+  private List<TestDatum> createTestData() {
     final List<TestDatum> testData = new ArrayList<>();
     for (int i = 0; i < mRandom.nextInt(20); i++) {
-      int id = mRandom.nextInt();
-      testData.add(new TestDatum(id, "This is datum number " + id));
+      testData.add(createTestDatum());
     }
-
-    return Observable.create(e -> {
-      e.onNext(testData);
-      e.onComplete(); // TODO: Never use for data calls?
-    });
+    return testData;
   }
 
   public interface Response<T> {
