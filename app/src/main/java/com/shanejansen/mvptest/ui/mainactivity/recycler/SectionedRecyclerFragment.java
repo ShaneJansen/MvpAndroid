@@ -1,4 +1,4 @@
-package com.shanejansen.mvptest.ui.mainactivity;
+package com.shanejansen.mvptest.ui.mainactivity.recycler;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;

@@ -7,7 +7,7 @@
       android:label="@string/app_name"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".ui.mainactivity.MainActivity">
+    <activity android:name=".ui.mainactivity.main.MainActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
@@ -16,15 +16,15 @@
 
     <activity
         android:name=".ui.secondactivity.SecondActivity"
-        android:parentActivityName=".ui.mainactivity.MainActivity" />
+        android:parentActivityName=".ui.mainactivity.main.MainActivity" />
 
     <activity
         android:name=".ui.multifragmentactivity.MultiFragmentActivity"
-        android:parentActivityName=".ui.mainactivity.MainActivity" />
+        android:parentActivityName=".ui.mainactivity.main.MainActivity" />
 
     <activity
-        android:name=".ui.rxjavaactivity.RxJavaActivity"
-        android:parentActivityName=".ui.mainactivity.MainActivity" />
+        android:name=".ui.mainactivity.rxjava.RxJavaFragment"
+        android:parentActivityName=".ui.mainactivity.main.MainActivity" />
   </application>
 
 </manifest>

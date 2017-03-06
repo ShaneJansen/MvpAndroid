@@ -1,12 +1,14 @@
-package com.shanejansen.mvptest.ui.mainactivity;
+package com.shanejansen.mvptest.ui.mainactivity.main;
 
 import android.content.Intent;
 import butterknife.OnClick;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppBaseFragment;
+import com.shanejansen.mvptest.ui.mainactivity.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.mainactivity.recycler.SectionedRecyclerFragment;
+import com.shanejansen.mvptest.ui.mainactivity.recycler.SimpleRecyclerFragment;
+import com.shanejansen.mvptest.ui.mainactivity.rxjava.RxJavaFragment;
 import com.shanejansen.mvptest.ui.multifragmentactivity.MultiFragmentActivity;
-import com.shanejansen.mvptest.ui.mvpexample.MvpExampleFragment;
-import com.shanejansen.mvptest.ui.rxjavaactivity.RxJavaActivity;
 import com.shanejansen.mvptest.ui.secondactivity.SecondActivity;
 
 /**
@@ -35,7 +37,7 @@ public class FirstFragment extends AppBaseFragment {
   }
 
   @OnClick(R.id.btnRxJava) void btnRxJavaClicked() {
-    startActivity(new Intent(getAppContext(), RxJavaActivity.class));
+    getTransactionHandler().addFragment(new RxJavaFragment(), MainActivity.MAIN_CONTAINER, true);
   }
 
   @OnClick(R.id.btnSimpleRecyclerExample) void btnSimpleRecyclerExampleClicked() {

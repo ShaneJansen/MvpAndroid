@@ -1,10 +1,10 @@
-package com.shanejansen.mvptest.ui.mainactivity;
+package com.shanejansen.mvptest.ui.mainactivity.main;
 
 import android.content.Intent;
 import android.support.v4.app.Fragment;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppFragmentActivity;
-import com.shanejansen.mvptest.ui.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.mainactivity.mvpexample.MvpExampleFragment;
 import com.shanejansen.mvptest.ui.secondactivity.SecondActivity;
 
 /**

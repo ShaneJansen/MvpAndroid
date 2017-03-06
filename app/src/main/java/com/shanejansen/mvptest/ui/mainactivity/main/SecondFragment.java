@@ -1,4 +1,4 @@
-package com.shanejansen.mvptest.ui.mainactivity;
+package com.shanejansen.mvptest.ui.mainactivity.main;
 
 import android.os.Bundle;
 import android.view.View;
