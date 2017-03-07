@@ -55,6 +55,7 @@ public class SectionedRecyclerFragment extends AppBaseFragment {
             new TestSectionedDatumAdapter.TestSectionedDatumAdapterInf() {
               @Override public void onItemClick(int position) {
                 mSections.get(0).getData().remove(0);
+                mTestSectionedDatumAdapter.updateSectionIndices();
                 mTestSectionedDatumAdapter.notifyDataSetChanged();
               }
             });

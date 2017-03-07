@@ -70,7 +70,19 @@ public abstract class SectionedRecyclerAdapter<T>
     for (int i = 0; i < sections.size(); i++) {
       mSections.append(i, sections.get(i));
     }
-    setSectionIndices();
+    updateSectionIndices();
+    notifyDataSetChanged();
+  }
+
+  public void updateSectionIndices() {
+    SparseArray<Section<T>> temp = mSections.clone();
+    mSections.clear();
+    int offset = 0;
+    for (int i = 0; i < temp.size(); i++) {
+      Section<T> section = temp.valueAt(i);
+      mSections.append(offset, section);
+      offset += section.getData().size() + 1;
+    }
   }
 
   public T positionToItem(int position) {
@@ -88,31 +100,12 @@ public abstract class SectionedRecyclerAdapter<T>
     return null;
   }
 
-  /*public T positionToItem(int position) {
-    int itemCount = 1; // +1 for header
-    for (int i = 0; i < mSections.size(); i++) {
-      Section<T> section = mSections.valueAt(i);
-      if (position <= section.getData().size() + itemCount - 1) {
-        return section.getData().get(position - itemCount);
-      }
-      itemCount += section.getData().size() + 1; // +1 for header
-    }
-    return null;
-  }*/
+  public Section<T> positionToSection(int position) {
+    return mSections.get(position);
+  }
 
   protected LayoutInflater getLayoutInflater() {
     return mLayoutInflater;
-  }
-
-  private void setSectionIndices() {
-    SparseArray<Section<T>> temp = mSections.clone();
-    mSections.clear();
-    int offset = 0;
-    for (int i = 0; i < temp.size(); i++) {
-      Section<T> section = temp.valueAt(i);
-      mSections.append(offset, section);
-      offset += section.getData().size() + 1;
-    }
   }
 
   private boolean isSectionHeader(int position) {

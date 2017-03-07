@@ -5,6 +5,8 @@ import android.support.v4.app.Fragment;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppFragmentActivity;
 import com.shanejansen.mvptest.ui.mainactivity.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.mainactivity.recycler.SectionedRecyclerFragment;
+import com.shanejansen.mvptest.ui.mainactivity.recycler.SimpleRecyclerFragment;
 import com.shanejansen.mvptest.ui.secondactivity.SecondActivity;
 
 /**
@@ -23,7 +25,11 @@ public class MainActivity extends AppFragmentActivity
       return "FirstFragment";
     } else if (fragment instanceof SecondFragment) {
       return "SecondFragment";
-    } else if (fragment instanceof MvpExampleFragment) return "MvpExampleFragment";
+    } else if (fragment instanceof MvpExampleFragment) {
+      return "MvpExampleFragment";
+    } else if (fragment instanceof SimpleRecyclerFragment) {
+      return "SimpleRecyclerFragment";
+    } else if (fragment instanceof SectionedRecyclerFragment) return "SectionedRecyclerFragment";
     return "";
   }
 
