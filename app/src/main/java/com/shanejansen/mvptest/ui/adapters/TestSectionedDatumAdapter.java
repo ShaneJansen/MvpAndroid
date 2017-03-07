@@ -10,6 +10,7 @@ import butterknife.ButterKnife;
 import com.shanejansen.mvpandroid.adapters.SectionedRecyclerAdapter;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.data.models.TestDatum;
+import java.util.List;
 
 /**
  * Created by Shane Jansen on 2/21/17.
@@ -17,20 +18,19 @@ import com.shanejansen.mvptest.data.models.TestDatum;
 public class TestSectionedDatumAdapter extends SectionedRecyclerAdapter<TestDatum> {
   private TestSectionedDatumAdapterInf mTestSectionedDatumAdapterInf;
 
-  public TestSectionedDatumAdapter(Context context, int sectionResourceId,
-      int sectionTitleResourceId, TestSectionedDatumAdapterInf testSectionedDatumAdapterInf) {
-    super(context, sectionResourceId, sectionTitleResourceId);
+  public TestSectionedDatumAdapter(Context context, List<Section<TestDatum>> sections,
+      int sectionResourceId, int sectionTitleResourceId,
+      TestSectionedDatumAdapterInf testSectionedDatumAdapterInf) {
+    super(context, sections, sectionResourceId, sectionTitleResourceId);
     mTestSectionedDatumAdapterInf = testSectionedDatumAdapterInf;
   }
 
   @Override protected RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent) {
     View v = getLayoutInflater().inflate(R.layout.item_testdatum, parent, false);
     final ViewHolder viewHolder = new ViewHolder(v);
-    v.setOnClickListener(new View.OnClickListener() {
-      @Override public void onClick(View view) {
-        if (viewHolder.getAdapterPosition() != RecyclerView.NO_POSITION) {
-          mTestSectionedDatumAdapterInf.onItemClick(viewHolder.getAdapterPosition());
-        }
+    v.setOnClickListener(view -> {
+      if (viewHolder.getAdapterPosition() != RecyclerView.NO_POSITION) {
+        mTestSectionedDatumAdapterInf.onItemClick(viewHolder.getAdapterPosition());
       }
     });
     return viewHolder;

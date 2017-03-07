@@ -2,11 +2,11 @@ package com.shanejansen.mvpandroid.adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import com.google.common.primitives.Ints;
 import java.util.List;
 
 /**
@@ -16,16 +16,18 @@ public abstract class SectionedRecyclerAdapter<T>
     extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
   private static final int TYPE_SECTION = 0;
   private static final int TYPE_ITEM = 1;
-  private SparseArray<Section<T>> mSections;
+  private List<Section<T>> mSections;
   private LayoutInflater mLayoutInflater;
   private int mSectionResourceId, mSectionTitleResourceId;
+  private int[] mSectionIndices;
 
-  public SectionedRecyclerAdapter(Context context, int sectionResourceId,
+  public SectionedRecyclerAdapter(Context context, List<Section<T>> sections, int sectionResourceId,
       int sectionTitleResourceId) {
-    mSections = new SparseArray<>();
+    mSections = sections;
     mLayoutInflater = LayoutInflater.from(context);
     mSectionResourceId = sectionResourceId;
     mSectionTitleResourceId = sectionTitleResourceId;
+    setSectionIndices();
   }
 
   protected abstract RecyclerView.ViewHolder onCreateItemViewHolder(ViewGroup parent);
@@ -34,12 +36,9 @@ public abstract class SectionedRecyclerAdapter<T>
 
   @Override public int getItemCount() {
     int count = 0;
-    for (int i = 0; i < mSections.size(); i++) {
-      Section section = mSections.valueAt(i);
-      if (section.getData().size() != 0) {
-        ++count;
-        count += section.getData().size();
-      }
+    for (Section s : mSections) {
+      ++count;
+      count += s.getData().size();
     }
     return count;
   }
@@ -59,40 +58,38 @@ public abstract class SectionedRecyclerAdapter<T>
 
   @Override public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
     if (isSectionHeader(position)) {
-      ((SectionViewHolder) holder).title.setText(mSections.get(position).getTitle());
+      ((SectionViewHolder) holder).title.setText(positionToSection(position).getTitle());
     } else {
       onBindItemViewHolder(holder, positionToItem(position));
     }
   }
 
-  public void setSections(List<Section<T>> sections) {
-    mSections.clear();
-    for (int i = 0; i < sections.size(); i++) {
-      mSections.append(i, sections.get(i));
-    }
-    updateSectionIndices();
-    notifyDataSetChanged();
-  }
-
-  public void updateSectionIndices() {
-    SparseArray<Section<T>> temp = mSections.clone();
-    mSections.clear();
+  /**
+   * Sets the indices the sections are located at.  This method should be called whenever the
+   * adapter's data is manipulated and before it is notified.
+   */
+  public void setSectionIndices() {
+    mSectionIndices = new int[mSections.size()];
     int offset = 0;
-    for (int i = 0; i < temp.size(); i++) {
-      Section<T> section = temp.valueAt(i);
-      mSections.append(offset, section);
-      offset += section.getData().size() + 1;
+    for (int i = 0; i < mSectionIndices.length; i++) {
+      mSectionIndices[i] = offset;
+      offset += mSections.get(i).getData().size() + 1;
     }
   }
 
+  /**
+   * Given an adapter position, returns the corresponding item.
+   *
+   * @param position an adapter position
+   * @return the corresponding item
+   */
   public T positionToItem(int position) {
     int numItem = 0;
-    for (int i = 0; i < mSections.size(); i++) {
+    for (Section<T> s : mSections) {
       ++numItem;
-      Section<T> section = mSections.valueAt(i);
-      for (int j = 0; j < section.getData().size(); j++) {
+      for (int j = 0; j < s.getData().size(); j++) {
         if (position == numItem) {
-          return section.getData().get(j);
+          return s.getData().get(j);
         }
         ++numItem;
       }
@@ -100,16 +97,52 @@ public abstract class SectionedRecyclerAdapter<T>
     return null;
   }
 
+  /**
+   * Given an adapter position, returns the corresponding section.
+   *
+   * @param position an adapter position
+   * @return the corresponding section
+   */
   public Section<T> positionToSection(int position) {
-    return mSections.get(position);
+    ++position; // Since we are counting items, start at 1
+    int itemNum = 0;
+    for (Section<T> s : mSections) {
+      itemNum += s.getData().size() + 1;
+      if (position <= itemNum) return s;
+    }
+    return null;
   }
 
+  /**
+   * Returns the total number of items in this adapter.
+   *
+   * @return the total number of items in this adapter
+   */
+  public int getTotalSize() {
+    int itemNum = 0;
+    for (Section s : mSections) {
+      itemNum += s.getData().size() + 1;
+    }
+    return itemNum;
+  }
+
+  /**
+   * Returns this adapter's Layout Inflater.
+   *
+   * @return this adapter's Layout Inflater
+   */
   protected LayoutInflater getLayoutInflater() {
     return mLayoutInflater;
   }
 
+  /**
+   * Returns true if the given adapter position is a section header; false otherwise.
+   *
+   * @param position an adapter position
+   * @return true if the given adapter position is a section header; false otherwise
+   */
   private boolean isSectionHeader(int position) {
-    return mSections.get(position) != null;
+    return Ints.contains(mSectionIndices, position);
   }
 
   static class SectionViewHolder extends RecyclerView.ViewHolder {

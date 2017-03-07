@@ -51,15 +51,15 @@ public class SectionedRecyclerFragment extends AppBaseFragment {
     mSections.add(new SectionedRecyclerAdapter.Section<>("Section 3", section3));
 
     mTestSectionedDatumAdapter =
-        new TestSectionedDatumAdapter(getContext(), R.layout.item_header, R.id.tvTitle,
-            new TestSectionedDatumAdapter.TestSectionedDatumAdapterInf() {
-              @Override public void onItemClick(int position) {
-                mSections.get(0).getData().remove(0);
-                mTestSectionedDatumAdapter.updateSectionIndices();
-                mTestSectionedDatumAdapter.notifyDataSetChanged();
-              }
+        new TestSectionedDatumAdapter(getContext(), mSections, R.layout.item_header, R.id.tvTitle,
+            position -> {
+              SectionedRecyclerAdapter.Section<TestDatum> section =
+                  mTestSectionedDatumAdapter.positionToSection(position);
+              TestDatum item = mTestSectionedDatumAdapter.positionToItem(position);
+              section.getData().remove(item);
+              mTestSectionedDatumAdapter.setSectionIndices();
+              mTestSectionedDatumAdapter.notifyItemRemoved(position);
             });
-    mTestSectionedDatumAdapter.setSections(mSections);
   }
 
   @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
@@ -69,25 +69,30 @@ public class SectionedRecyclerFragment extends AppBaseFragment {
   }
 
   @OnClick(R.id.fbAdd) void onClickFbAdd() {
-    /*mTestData.add(0, new TestDatum(++mCurrentId, "Added to Beginning"));
-    mTestDatumAdapter.notifyItemInserted(0);
-    mRvRecycler.scrollToPosition(0);*/
+    mSections.get(0).getData().add(0, new TestDatum(++mCurrentId, "Added to Beginning"));
+    mTestSectionedDatumAdapter.setSectionIndices();
+    mTestSectionedDatumAdapter.notifyItemInserted(1);
+    mRvRecycler.scrollToPosition(0);
   }
 
   @OnClick(R.id.fbAddListBeginning) void onClickFbAddListBeginning() {
-    /*mTestData.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
-    mTestData.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
-    mTestData.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
-    mTestDatumAdapter.notifyItemRangeInserted(0, 3);
-    mRvRecycler.scrollToPosition(0);*/
+    List<TestDatum> data = mSections.get(0).getData();
+    data.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
+    data.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
+    data.add(0, new TestDatum(++mCurrentId, "Added List to Beginning"));
+    mTestSectionedDatumAdapter.setSectionIndices();
+    mTestSectionedDatumAdapter.notifyItemRangeInserted(1, 3);
+    mRvRecycler.scrollToPosition(0);
   }
 
   @OnClick(R.id.fbAddListEnd) void onClickFbAddListEnd() {
-    /*int oldSize = mTestData.size();
-    mTestData.add(new TestDatum(++mCurrentId, "Added List to End"));
-    mTestData.add(new TestDatum(++mCurrentId, "Added List to End"));
-    mTestData.add(new TestDatum(++mCurrentId, "Added List to End"));
-    mTestDatumAdapter.notifyItemRangeInserted(oldSize, 3);
-    mRvRecycler.scrollToPosition(mTestData.size() - 1);*/
+    int oldSize = mTestSectionedDatumAdapter.getTotalSize();
+    List<TestDatum> data = mSections.get(mSections.size() - 1).getData();
+    data.add(new TestDatum(++mCurrentId, "Added List to End"));
+    data.add(new TestDatum(++mCurrentId, "Added List to End"));
+    data.add(new TestDatum(++mCurrentId, "Added List to End"));
+    mTestSectionedDatumAdapter.setSectionIndices();
+    mTestSectionedDatumAdapter.notifyItemRangeInserted(oldSize, 3);
+    mRvRecycler.scrollToPosition(mTestSectionedDatumAdapter.getTotalSize() - 1);
   }
 }
