@@ -42,9 +42,8 @@ public abstract class BaseFragment extends Fragment {
 
   @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
       Bundle savedInstanceState) {
-    View v = inflater.inflate(getLayoutResourceId(), container, false);
-    onViewInflated(v, savedInstanceState);
-    return v;
+    super.onCreateView(inflater, container, savedInstanceState);
+    return inflater.inflate(getLayoutResourceId(), container, false);
   }
 
   /**
@@ -94,13 +93,6 @@ public abstract class BaseFragment extends Fragment {
    */
   protected Context getAppContext() {
     return getActivity().getApplicationContext();
-  }
-
-  /**
-   * Called after the view has been inflated. Any initial setup for the fragment should be done
-   * here.
-   */
-  protected void onViewInflated(View v, Bundle savedInstanceState) {
   }
 
   /**

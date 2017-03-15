@@ -1,7 +1,10 @@
 package com.shanejansen.mvptest.ui.mainactivity.rxjava;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import butterknife.Bind;
@@ -25,18 +28,20 @@ public class RxJavaFragment extends AppBaseFragment {
     return R.layout.fragment_rxjava;
   }
 
-  @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
-    super.onViewInflated(v, savedInstanceState);
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
     mSubscriptions = new ArrayList<>();
+  }
 
-    mSubscriptions.add(RxView.clicks(mBtnLoadData).subscribe(aVoid -> {
-      DataManager.getInstance().getTestDatumRx().map(testDatum -> {
-        testDatum.setText("Mapped Text " + testDatum.getId());
-        return testDatum;
-      }).subscribe(testDatum -> {
-        mTvData.setText(testDatum.getText());
-      });
-    }));
+  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    View v = super.onCreateView(inflater, container, savedInstanceState);
+    mSubscriptions.add(RxView.clicks(mBtnLoadData)
+        .subscribe(aVoid -> DataManager.getInstance().getTestDatumRx().map(testDatum -> {
+          testDatum.setText("Mapped Text " + testDatum.getId());
+          return testDatum;
+        }).subscribe(testDatum -> mTvData.setText(testDatum.getText()))));
+    return v;
   }
 
   @Override public void onDestroy() {

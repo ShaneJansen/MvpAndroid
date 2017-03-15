@@ -1,10 +1,6 @@
 package com.shanejansen.mvptest.ui.mvpexampleactivity.fragment;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.OnClick;
@@ -49,14 +45,9 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
     presenter().clickSwitchActivities();
   }
 
-  @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
-    super.onViewInflated(v, savedInstanceState);
+  @Override public void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
     mMvpExampleFragmentInf = getParentInterface(MvpExampleFragmentInf.class);
-  }
-
-  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    return super.onCreateView(inflater, container, savedInstanceState);
   }
 
   public interface MvpExampleFragmentInf {

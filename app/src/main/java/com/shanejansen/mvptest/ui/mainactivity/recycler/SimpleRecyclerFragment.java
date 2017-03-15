@@ -1,9 +1,12 @@
 package com.shanejansen.mvptest.ui.mainactivity.recycler;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import butterknife.Bind;
 import butterknife.OnClick;
 import com.shanejansen.mvptest.R;
@@ -43,10 +46,12 @@ public class SimpleRecyclerFragment extends AppBaseFragment {
     mTestDatumAdapter.notifyDataSetChanged();
   }
 
-  @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
-    super.onViewInflated(v, savedInstanceState);
+  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    View v = super.onCreateView(inflater, container, savedInstanceState);
     mRvRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
     mRvRecycler.setAdapter(mTestDatumAdapter);
+    return v;
   }
 
   @OnClick(R.id.fbAdd) void onClickFbAdd() {

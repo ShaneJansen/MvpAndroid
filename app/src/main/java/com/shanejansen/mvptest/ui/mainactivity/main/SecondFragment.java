@@ -1,7 +1,10 @@
 package com.shanejansen.mvptest.ui.mainactivity.main;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.Bind;
 import com.shanejansen.mvptest.R;
@@ -17,8 +20,10 @@ public class SecondFragment extends AppBaseFragment {
     return R.layout.fragment_text;
   }
 
-  @Override protected void onViewInflated(View v, Bundle savedInstanceState) {
-    super.onViewInflated(v, savedInstanceState);
+  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
+      Bundle savedInstanceState) {
+    View v = super.onCreateView(inflater, container, savedInstanceState);
     mTv.setText(getResources().getString(R.string.fragment_second));
+    return v;
   }
 }
