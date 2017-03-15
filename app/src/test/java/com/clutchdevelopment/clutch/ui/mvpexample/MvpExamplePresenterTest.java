@@ -1,9 +1,9 @@
 package com.clutchdevelopment.clutch.ui.mvpexample;
 
 import com.shanejansen.mvptest.data.models.TestDatum;
-import com.shanejansen.mvptest.ui.mainactivity.mvpexample.MvpExampleFragment;
-import com.shanejansen.mvptest.ui.mainactivity.mvpexample.MvpExamplePresenter;
-import com.shanejansen.mvptest.ui.mainactivity.mvpexample.MvpExampleViewModel;
+import com.shanejansen.mvptest.ui.mvpexampleactivity.fragment.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.mvpexampleactivity.fragment.MvpExamplePresenter;
+import com.shanejansen.mvptest.ui.mvpexampleactivity.fragment.MvpExampleViewModel;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

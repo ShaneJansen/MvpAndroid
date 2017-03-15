@@ -1,4 +1,4 @@
-package com.shanejansen.mvptest.ui.mainactivity.mvpexample;
+package com.shanejansen.mvptest.ui.mvpexampleactivity.fragment;
 
 import com.shanejansen.mvpandroid.mvp.BaseViewModel;
 import com.shanejansen.mvptest.data.DataManager;

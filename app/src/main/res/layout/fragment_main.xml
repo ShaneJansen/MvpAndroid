@@ -20,7 +20,7 @@
       android:id="@+id/btnAddMvpFragment"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="@string/add_mvp_fragment"
+      android:text="@string/add_mvp_activity"
       />
   <Button
       android:id="@+id/btnSwitchActivities"

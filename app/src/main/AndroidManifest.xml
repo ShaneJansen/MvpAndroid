@@ -15,6 +15,10 @@
     </activity>
 
     <activity
+        android:name=".ui.mvpexampleactivity.MvpExampleActivity"
+        android:parentActivityName=".ui.mainactivity.main.MainActivity" />
+
+    <activity
         android:name=".ui.secondactivity.SecondActivity"
         android:parentActivityName=".ui.mainactivity.main.MainActivity" />
 

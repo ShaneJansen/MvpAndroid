@@ -1,4 +1,4 @@
-package com.shanejansen.mvptest.ui.mainactivity.mvpexample;
+package com.shanejansen.mvptest.ui.mvpexampleactivity.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

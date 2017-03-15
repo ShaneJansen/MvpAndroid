@@ -1,6 +1,7 @@
 package com.shanejansen.mvpandroid.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -154,7 +155,7 @@ public abstract class SectionedRecyclerAdapter<T>
     }
   }
 
-  public static class Section<T> {
+  public static class Section<T> implements Comparable<Section<T>> {
     private String mTitle;
     private List<T> mData;
 
@@ -169,6 +170,10 @@ public abstract class SectionedRecyclerAdapter<T>
 
     public List<T> getData() {
       return mData;
+    }
+
+    @Override public int compareTo(@NonNull Section<T> tSection) {
+      return getTitle().toLowerCase().compareTo(tSection.getTitle().toLowerCase());
     }
   }
 }

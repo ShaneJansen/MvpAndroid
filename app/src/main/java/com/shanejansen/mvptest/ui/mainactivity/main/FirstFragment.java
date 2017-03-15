@@ -4,7 +4,8 @@ import android.content.Intent;
 import butterknife.OnClick;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppBaseFragment;
-import com.shanejansen.mvptest.ui.mainactivity.mvpexample.MvpExampleFragment;
+import com.shanejansen.mvptest.ui.mvpexampleactivity.MvpExampleActivity;
+import com.shanejansen.mvptest.ui.mvpexampleactivity.fragment.MvpExampleFragment;
 import com.shanejansen.mvptest.ui.mainactivity.recycler.SectionedRecyclerFragment;
 import com.shanejansen.mvptest.ui.mainactivity.recycler.SimpleRecyclerFragment;
 import com.shanejansen.mvptest.ui.mainactivity.rxjava.RxJavaFragment;
@@ -23,9 +24,8 @@ public class FirstFragment extends AppBaseFragment {
     getTransactionHandler().addFragment(new SecondFragment(), MainActivity.MAIN_CONTAINER, true);
   }
 
-  @OnClick(R.id.btnAddMvpFragment) void btnAddMvpFragmentClicked() {
-    getTransactionHandler().addFragment(new MvpExampleFragment(), MainActivity.MAIN_CONTAINER,
-        true);
+  @OnClick(R.id.btnAddMvpFragment) void btnAddMvpActivityClicked() {
+    startActivity(new Intent(getAppContext(), MvpExampleActivity.class));
   }
 
   @OnClick(R.id.btnSwitchActivities) void btnSwitchActivitiesClicked() {
