@@ -2,10 +2,6 @@ package com.shanejansen.mvpandroid.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import com.shanejansen.mvpandroid.mvp.BasePresenter;
 import com.shanejansen.mvpandroid.mvp.BaseView;
 import com.shanejansen.mvpandroid.mvp.BaseViewModel;

@@ -30,6 +30,10 @@ public abstract class MvpActivity<P> extends FragmentActivity implements BaseVie
         initialMvpBind();
       }
     }
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
     ((BasePresenter) mPresenter).viewReady();
   }
 
