@@ -43,11 +43,9 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
     }
   }
 
-  @Nullable @Override public View onCreateView(LayoutInflater inflater, ViewGroup container,
-      Bundle savedInstanceState) {
-    View v = super.onCreateView(inflater, container, savedInstanceState);
+  @Override public void onStart() {
+    super.onStart();
     ((BasePresenter) mPresenter).viewReady();
-    return v;
   }
 
   @SuppressWarnings("unchecked") @Override public void onSaveInstanceState(Bundle outState) {

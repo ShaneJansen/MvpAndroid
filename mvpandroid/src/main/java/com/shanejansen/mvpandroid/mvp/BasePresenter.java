@@ -19,14 +19,13 @@ public abstract class BasePresenter<V, M> {
   }
 
   /**
-   * Called only once after the MakeModel is bound. Will not be called again even if the Presenter
+   * Called the first time the view is initialized. Will not be called again even if the Presenter
    * is restored.
    */
   protected abstract void initView();
 
   /**
-   * Called each time the view is ready to be updated. Should only be called once the View and
-   * ViewModel are bound.
+   * Called every time the view is updated (back-stack changes)
    */
   protected abstract void updateView();
 

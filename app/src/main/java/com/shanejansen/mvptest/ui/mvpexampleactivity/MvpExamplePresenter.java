@@ -13,6 +13,6 @@ public class MvpExamplePresenter
   }
 
   @Override protected void updateView() {
-    // Called every time the view is updated (orientation changes)
+    // Called every time the view is updated (back-stack changes)
   }
 }
