@@ -6,7 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NavUtils;
-import com.shanejansen.mvpandroid.handlers.TransactionHandler;
+import com.shanejansen.mvpandroid.mvp.TransactionHandler;
 
 /**
  * Created by Shane Jansen on 5/31/16.

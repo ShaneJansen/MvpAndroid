@@ -1,17 +1,20 @@
 package com.shanejansen.mvpandroid.mvp;
 
-import com.shanejansen.mvpandroid.handlers.LoadingHandler;
-
 /**
  * Created by Shane Jansen on 5/24/16.
  *
  * Building block for view models in the MVP architecture.
  */
-public abstract class BaseViewModel<P> implements LoadingHandler {
+public abstract class BaseViewModel<P> {
   private P mPresenter;
 
   public BaseViewModel() {
   }
+
+  /**
+   * Reloads this view's data.
+   */
+  public abstract void reloadData();
 
   /**
    * Binds the presenter to this view model.

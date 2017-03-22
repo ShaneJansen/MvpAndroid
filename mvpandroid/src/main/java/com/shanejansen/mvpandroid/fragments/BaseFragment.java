@@ -8,7 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.shanejansen.mvpandroid.handlers.TransactionHandler;
+import com.shanejansen.mvpandroid.mvp.TransactionHandler;
 
 /**
  * Created by Shane Jansen on 3/25/16.

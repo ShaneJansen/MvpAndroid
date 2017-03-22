@@ -1,4 +1,4 @@
-package com.shanejansen.mvpandroid.handlers;
+package com.shanejansen.mvpandroid.mvp;
 
 import android.support.v4.app.Fragment;
 
