@@ -10,12 +10,13 @@ import java.lang.ref.WeakReference;
  * Building block for presenters in the MVP architecture.
  */
 public abstract class BasePresenter<V, M> {
-  private boolean mInitialized;
+  private boolean mInitialized, mShouldLoadInitially;
   private WeakReference<V> mView;
   private M mViewModel;
 
   public BasePresenter() {
     mInitialized = false;
+    mShouldLoadInitially = true;
   }
 
   /**
@@ -29,11 +30,18 @@ public abstract class BasePresenter<V, M> {
    */
   protected abstract void updateView();
 
+  /**
+   * Called after initView unless shouldLoadInitially is set to false. All data calls to the
+   * ViewModel should be placed here.
+   */
+  protected abstract void loadData();
+
   public void viewReady() {
     if (mInitialized) {
       updateView();
     } else {
       initView();
+      if (mShouldLoadInitially) loadData();
       mInitialized = true;
     }
   }
@@ -83,6 +91,16 @@ public abstract class BasePresenter<V, M> {
    */
   public boolean viewModelExists() {
     return mViewModel != null;
+  }
+
+  /**
+   * Set to false if the view should not load any data initially. Data can always be loaded later
+   * by calling the loadData method. Default is true.
+   *
+   * @param shouldLoadInitially false if the view should not load any data initially
+   */
+  public void setShouldLoadInitially(boolean shouldLoadInitially) {
+    mShouldLoadInitially = shouldLoadInitially;
   }
 
   protected V view() {

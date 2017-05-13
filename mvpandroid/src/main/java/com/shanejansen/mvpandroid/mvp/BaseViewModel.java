@@ -12,11 +12,6 @@ public abstract class BaseViewModel<P> {
   }
 
   /**
-   * Reloads this view's data.
-   */
-  public abstract void reloadData();
-
-  /**
    * Binds the presenter to this view model.
    *
    * @param presenter The presenter to bind
