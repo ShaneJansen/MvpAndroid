@@ -12,6 +12,7 @@ import com.shanejansen.mvpandroid.mvp.PresenterMaintainer;
  */
 public abstract class MvpActivity<P> extends FragmentActivity implements BaseView {
   private boolean mIsPersisting;
+  private boolean mDidCreate;
   private P mPresenter;
 
   @Override public BaseView getMvpView() {
@@ -32,9 +33,16 @@ public abstract class MvpActivity<P> extends FragmentActivity implements BaseVie
     }
   }
 
+  /**
+   * This method should only be called once for the life of the Activity.  Unlike a Fragment, the
+   * Activity's view does not need to be recreated when it return from the back-stack.
+   */
   @Override protected void onStart() {
     super.onStart();
-    ((BasePresenter) mPresenter).viewReady();
+    if (!mDidCreate) {
+      mDidCreate = true;
+      ((BasePresenter) mPresenter).viewReady();
+    }
   }
 
   @SuppressWarnings("unchecked") @Override protected void onSaveInstanceState(Bundle outState) {
