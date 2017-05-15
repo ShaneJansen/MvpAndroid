@@ -7,6 +7,4 @@ import com.shanejansen.mvpandroid.mvp.BaseViewModel;
  */
 public class MvpExampleViewModel extends BaseViewModel<MvpExample.PresenterForViewModelOps>
     implements MvpExample.ViewModelForPresenterOps {
-  @Override public void reloadData() {
-  }
 }

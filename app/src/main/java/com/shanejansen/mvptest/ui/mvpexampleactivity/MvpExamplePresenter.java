@@ -15,4 +15,8 @@ public class MvpExamplePresenter
   @Override protected void updateView() {
     // Called every time the view is updated (back-stack changes)
   }
+
+  @Override protected void loadData() {
+    // Called after initView. Initial calls to ViewModel should be made here
+  }
 }

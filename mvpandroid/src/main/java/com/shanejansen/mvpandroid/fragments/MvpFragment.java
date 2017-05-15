@@ -14,7 +14,7 @@ import com.shanejansen.mvpandroid.mvp.PresenterMaintainer;
  * done here.
  */
 public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
-  private boolean mIsPersisting;
+  private boolean mShouldUpdateView, mIsPersisting;
   private P mPresenter;
 
   @Override public MvpFragment getMvpView() {
@@ -37,11 +37,17 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
         initialMvpBind();
       }
     }
+
+    // View should be updated after onCreate (initial creation or orientation not back-stack)
+    mShouldUpdateView = true;
   }
 
   @Override public void onStart() {
     super.onStart();
-    ((BasePresenter) mPresenter).viewReady();
+    if (mShouldUpdateView) {
+      ((BasePresenter) mPresenter).viewReady();
+      mShouldUpdateView = false;
+    }
   }
 
   @SuppressWarnings("unchecked") @Override public void onSaveInstanceState(Bundle outState) {

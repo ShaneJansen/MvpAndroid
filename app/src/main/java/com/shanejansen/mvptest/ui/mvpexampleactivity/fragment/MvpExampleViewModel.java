@@ -11,10 +11,6 @@ public class MvpExampleViewModel extends BaseViewModel<MvpExample.PresenterForVi
     implements MvpExample.ViewModelForPresenterOps {
   private TestDatum mTestDatum;
 
-  @Override public void reloadData() {
-    loadData();
-  }
-
   @Override public void loadData() {
     DataManager.getInstance().getTestDatum(new DataManager.Response<TestDatum>() {
       @Override public void success(TestDatum response, int httpCode) {

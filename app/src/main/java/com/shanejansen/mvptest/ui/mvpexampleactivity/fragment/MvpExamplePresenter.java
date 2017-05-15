@@ -17,6 +17,10 @@ public class MvpExamplePresenter
     if (viewModel().getData() != null) onLoadedData();
   }
 
+  @Override protected void loadData() {
+    // Called after initView. Initial calls to ViewModel should be made here
+  }
+
   @Override public void onLoadedData() {
     if (viewExists()) {
       view().setDataText(viewModel().getData().getText());
