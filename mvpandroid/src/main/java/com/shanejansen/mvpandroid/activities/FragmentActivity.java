@@ -19,6 +19,7 @@ public abstract class FragmentActivity extends BaseActivity
     implements TransactionHandler, FragmentManager.OnBackStackChangedListener {
   // It's possible that a FragmentActivity does not have a Fragment container
   // E.g. A ViewPager manages Fragments, but does not require a Fragment container
+  // Usually not good practice since the ViewPager can never be replaced with a Fragment
   protected static final int NO_MAIN_CONTAINER = 0;
   private boolean mDidRecreate;
 
