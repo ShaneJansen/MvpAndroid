@@ -46,6 +46,18 @@ public abstract class BaseFragment extends Fragment {
     return inflater.inflate(getLayoutResourceId(), container, false);
   }
 
+  @Override public void onDestroy() {
+    super.onDestroy();
+  }
+
+  @Override public void onDestroyView() {
+    super.onDestroyView();
+  }
+
+  @Override public void onSaveInstanceState(Bundle outState) {
+    super.onSaveInstanceState(outState);
+  }
+
   /**
    * Add a new Fragment to the current Fragment. No option to add to back stack because I can't
    * think of a reason to have a back stack for a nested Fragment (why not add to Activity if a

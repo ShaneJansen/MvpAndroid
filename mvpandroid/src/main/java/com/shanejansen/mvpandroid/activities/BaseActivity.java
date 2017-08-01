@@ -45,14 +45,18 @@ public abstract class BaseActivity extends AppCompatActivity {
       Activity. If we are in the process of re-creating this Activity (like after a rotation
       change), the onAttachFragment method needs to be called after the ActionBar has been set so
       the ActionBar title is set correctly. This Fragment logic exists in BaseActivity because the
-      setActionBarNavigation method also applies to a standard Activity.
+      setActionBarNavigation (see onStart()) method also applies to a standard Activity.
      */
     super.onCreate(savedInstanceState);
 
-    // The ActionBar navigation needs to be set AFTER the Fragments are added
-    setActionBarNavigation();
     // Check if this is a tablet
     if (getResources().getBoolean(R.bool.isTablet)) mIsTablet = true;
+  }
+
+  @Override protected void onStart() {
+    super.onStart();
+    // The ActionBar navigation needs to be set AFTER the Fragments and views have been loaded
+    setActionBarNavigation();
   }
 
   @Override public boolean onSupportNavigateUp() {
