@@ -31,7 +31,7 @@ dependencies {
 
 group =
     'com.shanejansen.mvpandroid' // The path used when accessing the library (Gradle: compile: ...)
-version = '1.1.11' // CHANGE THIS WHEN UPDATING
+version = '1.1.12' // CHANGE THIS WHEN UPDATING
 
 task generateSourcesJar(type: Jar) {
   from android.sourceSets.main.java.srcDirs
@@ -69,7 +69,7 @@ bintray {
     licenses = ['Apache-2.0']
     vcsUrl = 'https://github.com/ShaneJansen/MvpAndroid.git'
     version {
-      name = '1.1.11' // CHANGE THIS WHEN UPDATING (./gradlew bintrayUpload)
+      name = '1.1.12' // CHANGE THIS WHEN UPDATING (./gradlew bintrayUpload)
     }
   }
   configurations = ['archives']

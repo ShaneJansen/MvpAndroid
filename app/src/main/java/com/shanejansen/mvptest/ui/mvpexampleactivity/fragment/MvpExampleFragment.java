@@ -8,6 +8,8 @@ import com.shanejansen.mvpandroid.mvp.BasePresenter;
 import com.shanejansen.mvpandroid.mvp.BaseViewModel;
 import com.shanejansen.mvptest.R;
 import com.shanejansen.mvptest.ui.common.AppMvpFragment;
+import com.shanejansen.mvptest.ui.mainactivity.main.SecondFragment;
+import com.shanejansen.mvptest.ui.mvpexampleactivity.MvpExampleActivity;
 
 /**
  * Created by Shane Jansen on 1/16/17.
@@ -37,12 +39,21 @@ public class MvpExampleFragment extends AppMvpFragment<MvpExample.PresenterForVi
     mMvpExampleFragmentInf.switchActivities();
   }
 
+  @Override public void addFragment() {
+    getTransactionHandler().addFragment(new SecondFragment(), MvpExampleActivity.MAIN_CONTAINER,
+        true);
+  }
+
   @OnClick(R.id.btnLoadData) void btnLoadDataClicked() {
     presenter().clickedLoadData();
   }
 
   @OnClick(R.id.btnSwitchActivities) void btnSwitchActivitiesClicked() {
     presenter().clickSwitchActivities();
+  }
+
+  @OnClick(R.id.btnAddFragment) void btnAddFragmentClicked() {
+    presenter().clickedAddFragment();
   }
 
   @Override public void onCreate(Bundle savedInstanceState) {

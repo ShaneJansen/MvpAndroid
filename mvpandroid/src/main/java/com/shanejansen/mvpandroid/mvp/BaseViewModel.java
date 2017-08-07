@@ -21,12 +21,10 @@ public abstract class BaseViewModel<P> {
   }
 
   /**
-   * Unbints the presenter from this view model.
-   *
-   * @param isPersisting True if we are persisting the MVP
+   * Unbinds the presenter from this view model.
    */
-  public void unbind(boolean isPersisting) {
-    if (!isPersisting) mPresenter = null;
+  public void unbindPresenter() {
+    mPresenter = null;
   }
 
   /**

@@ -13,6 +13,8 @@ public interface MvpExample {
     void setDataText(String data);
 
     void switchActivities();
+
+    void addFragment();
   }
 
   /**
@@ -22,6 +24,8 @@ public interface MvpExample {
     void clickedLoadData();
 
     void clickSwitchActivities();
+
+    void clickedAddFragment();
   }
 
   /**

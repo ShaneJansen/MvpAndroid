@@ -12,7 +12,6 @@ import com.shanejansen.mvpandroid.mvp.PresenterMaintainer;
  */
 public abstract class MvpActivity<P> extends FragmentActivity implements BaseView {
   private boolean mIsPersisting;
-  private boolean mDidCreate;
   private P mPresenter;
 
   @Override public BaseView getMvpView() {
@@ -25,24 +24,14 @@ public abstract class MvpActivity<P> extends FragmentActivity implements BaseVie
       initialMvpBind();
     } else {
       mPresenter = (P) PresenterMaintainer.getInstance().restorePresenter(savedInstanceState);
-      if (mPresenter != null) {
-        ((BasePresenter) mPresenter).bindView(getMvpView());
-      } else {
-        initialMvpBind();
-      }
+      if (mPresenter == null) initialMvpBind();
     }
   }
 
-  /**
-   * This method should only be called once for the life of the Activity.  Unlike a Fragment, the
-   * Activity's view does not need to be recreated when it return from the back-stack.
-   */
-  @Override protected void onStart() {
+  @SuppressWarnings("unchecked") @Override protected void onStart() {
+    ((BasePresenter) mPresenter).bindView(getMvpView());
+    ((BasePresenter) mPresenter).viewReady();
     super.onStart();
-    if (!mDidCreate) {
-      mDidCreate = true;
-      ((BasePresenter) mPresenter).viewReady();
-    }
   }
 
   @SuppressWarnings("unchecked") @Override protected void onSaveInstanceState(Bundle outState) {
@@ -51,9 +40,10 @@ public abstract class MvpActivity<P> extends FragmentActivity implements BaseVie
     PresenterMaintainer.getInstance().savePresenter((BasePresenter) mPresenter, outState);
   }
 
-  @Override protected void onDestroy() {
-    ((BasePresenter) mPresenter).unbind(mIsPersisting);
-    super.onDestroy();
+  @Override protected void onStop() {
+    ((BasePresenter) mPresenter).unbindView();
+    if (!mIsPersisting) ((BasePresenter) mPresenter).unbindViewModel();
+    super.onStop();
   }
 
   @Override public Context getAppContext() {
@@ -63,7 +53,6 @@ public abstract class MvpActivity<P> extends FragmentActivity implements BaseVie
   @SuppressWarnings("unchecked") private void initialMvpBind() {
     mPresenter = (P) getMvpPresenter();
     BaseViewModel viewModel = getMvpViewModel();
-    ((BasePresenter) mPresenter).bindView(getMvpView());
     ((BasePresenter) mPresenter).bindViewModel(viewModel);
     viewModel.bindPresenter(mPresenter);
   }

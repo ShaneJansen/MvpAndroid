@@ -65,14 +65,18 @@ public abstract class BasePresenter<V, M> {
   }
 
   /**
-   * Unbinds the view and view model from this presenter.
-   *
-   * @param isPersisting True if we are persisting the MVP
+   * Unbinds the view from this presenter.
    */
-  public void unbind(boolean isPersisting) {
+  public void unbindView() {
     mView = null;
-    ((BaseViewModel) mViewModel).unbind(isPersisting);
-    if (!isPersisting) mViewModel = null;
+  }
+
+  /**
+   * Unbinds the view model from this presenter.
+   */
+  public void unbindViewModel() {
+    ((BaseViewModel) mViewModel).unbindPresenter();
+    mViewModel = null;
   }
 
   /**

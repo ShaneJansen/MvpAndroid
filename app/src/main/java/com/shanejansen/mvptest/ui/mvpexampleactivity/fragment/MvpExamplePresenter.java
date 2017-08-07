@@ -34,4 +34,8 @@ public class MvpExamplePresenter
   @Override public void clickSwitchActivities() {
     view().switchActivities();
   }
+
+  @Override public void clickedAddFragment() {
+    view().addFragment();
+  }
 }

@@ -14,7 +14,7 @@ import com.shanejansen.mvpandroid.mvp.PresenterMaintainer;
  * done here.
  */
 public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
-  private boolean mShouldUpdateView, mIsPersisting;
+  private boolean mIsPersisting;
   private P mPresenter;
 
   @Override public MvpFragment getMvpView() {
@@ -31,23 +31,14 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
         The PresenterMaintainer could have expelled the Presenter from the cache or Android could
         have killed the Application process destroying the PresenterMaintainer.
        */
-      if (mPresenter != null) {
-        ((BasePresenter) mPresenter).bindView(getMvpView());
-      } else {
-        initialMvpBind();
-      }
+      if (mPresenter == null) initialMvpBind();
     }
-
-    // View should be updated after onCreate (initial creation or orientation not back-stack)
-    mShouldUpdateView = true;
   }
 
-  @Override public void onStart() {
+  @SuppressWarnings("unchecked") @Override public void onStart() {
+    ((BasePresenter) mPresenter).bindView(getMvpView());
+    ((BasePresenter) mPresenter).viewReady();
     super.onStart();
-    if (mShouldUpdateView) {
-      ((BasePresenter) mPresenter).viewReady();
-      mShouldUpdateView = false;
-    }
   }
 
   @SuppressWarnings("unchecked") @Override public void onSaveInstanceState(Bundle outState) {
@@ -57,8 +48,14 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
   }
 
   @Override public void onDestroy() {
-    ((BasePresenter) mPresenter).unbind(mIsPersisting);
+    if (!mIsPersisting) ((BasePresenter) mPresenter).unbindViewModel();
     super.onDestroy();
+  }
+
+  @Override public void onDestroyView() {
+    // We always unbind the view here since the view is no longer visible but the Fragment itself exists (such as a new Fragment being added to the stack)
+    ((BasePresenter) mPresenter).unbindView();
+    super.onDestroyView();
   }
 
   @Override public Context getAppContext() {
@@ -68,7 +65,6 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
   @SuppressWarnings("unchecked") private void initialMvpBind() {
     mPresenter = (P) getMvpPresenter();
     BaseViewModel viewModel = getMvpViewModel();
-    ((BasePresenter) mPresenter).bindView(getMvpView());
     ((BasePresenter) mPresenter).bindViewModel(viewModel);
     viewModel.bindPresenter(mPresenter);
   }
