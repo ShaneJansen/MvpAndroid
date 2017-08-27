@@ -19,6 +19,7 @@ import com.shanejansen.mvpandroid.mvp.TransactionHandler;
 public abstract class BaseFragment extends Fragment {
   private TransactionHandler mTransactionHandler;
   private boolean mDidRecreate;
+  private Object mParent;
 
   /**
    * Used to get the layout resource id for this fragment.
@@ -114,7 +115,8 @@ public abstract class BaseFragment extends Fragment {
    * @return this Fragment's Interface which is implemented by the parent
    */
   protected <T> T getParentInterface(Class<T> clazz) {
-    Object parent = getParentFragment();
+    Object parent = mParent;
+    if (parent == null) parent = getParentFragment();
     if (parent == null) parent = getActivity();
     try {
       return clazz.cast(parent);
@@ -122,6 +124,16 @@ public abstract class BaseFragment extends Fragment {
       throw new ClassCastException(
           parent.getClass().getSimpleName() + " must implement " + clazz.getSimpleName());
     }
+  }
+
+  /**
+   * Sets this Fragment's parent object. This Fragment will use a default parent if this
+   * method is not called. The parent determines where this Fragment's callbacks are executed.
+   *
+   * @param parent this Fragment's parent object
+   */
+  public void setParent(Object parent) {
+    mParent = parent;
   }
 
   /**
