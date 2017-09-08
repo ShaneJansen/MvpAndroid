@@ -8,7 +8,7 @@ import com.shanejansen.mvpandroid.mvp.BasePresenter;
 public class MvpExamplePresenter
     extends BasePresenter<MvpExample.ViewForPresenterOps, MvpExample.ViewModelForPresenterOps>
     implements MvpExample.PresenterForViewOps, MvpExample.PresenterForViewModelOps {
-  @Override protected void initView() {
+  @Override protected void init() {
     // Called the first time the view is initialized
   }
 
@@ -18,7 +18,7 @@ public class MvpExamplePresenter
   }
 
   @Override protected void loadData() {
-    // Called after initView. Initial calls to ViewModel should be made here
+    // Called after init. Initial calls to ViewModel should be made here
   }
 
   @Override public void onLoadedData() {

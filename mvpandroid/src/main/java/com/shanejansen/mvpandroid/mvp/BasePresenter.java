@@ -20,18 +20,19 @@ public abstract class BasePresenter<V, M> {
   }
 
   /**
-   * Called the first time the view is initialized. Will not be called again even if the Presenter
-   * is restored.
+   * Called the first time this Presenter is initialized. Will not be called again even if the
+   * Presenter is restored.
    */
-  protected abstract void initView();
+  protected abstract void init();
 
   /**
-   * Called every time the view is updated (back-stack changes)
+   * Called every time the view is updated (including back-stack changes). Updates/restores to the
+   * view should be done here.
    */
   protected abstract void updateView();
 
   /**
-   * Called after initView unless shouldLoadInitially is set to false. All data calls to the
+   * Called after init unless shouldLoadInitially is set to false. All data calls to the
    * ViewModel should be placed here.
    */
   protected abstract void loadData();
@@ -40,7 +41,8 @@ public abstract class BasePresenter<V, M> {
     if (mInitialized) {
       updateView();
     } else {
-      initView();
+      init();
+      updateView();
       if (mShouldLoadInitially) loadData();
       mInitialized = true;
     }
