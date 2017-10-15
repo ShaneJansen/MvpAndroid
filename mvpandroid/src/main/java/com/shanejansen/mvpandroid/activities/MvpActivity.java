@@ -34,6 +34,11 @@ public abstract class MvpActivity<P> extends FragmentActivity implements BaseVie
     super.onStart();
   }
 
+  @Override public void onResume() {
+    super.onResume();
+    ((BasePresenter) mPresenter).nestedFragmentsReady();
+  }
+
   @SuppressWarnings("unchecked") @Override protected void onSaveInstanceState(Bundle outState) {
     super.onSaveInstanceState(outState);
     mIsPersisting = true;

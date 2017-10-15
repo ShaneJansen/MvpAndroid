@@ -49,6 +49,13 @@ public abstract class BasePresenter<V, M> {
   }
 
   /**
+   * Called whether nested Fragments exist or not. Called when all Fragments within this
+   * Activity/Fragment are ready to be called upon.
+   */
+  public void nestedFragmentsReady() {
+  }
+
+  /**
    * Binds the view to this presenter.
    *
    * @param view The view to bind

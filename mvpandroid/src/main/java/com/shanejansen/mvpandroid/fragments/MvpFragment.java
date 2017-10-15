@@ -30,7 +30,7 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
       /*
         The PresenterMaintainer could have expelled the Presenter from the cache or Android could
         have killed the Application process destroying the PresenterMaintainer.
-       */
+      */
       if (mPresenter == null) initialMvpBind();
     }
   }
@@ -39,6 +39,17 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
     ((BasePresenter) mPresenter).bindView(getMvpView());
     ((BasePresenter) mPresenter).viewReady();
     super.onStart();
+  }
+
+  @Override public void onResume() {
+    super.onResume();
+    /*
+      Nested Fragments are ready at this point because their Presenters have finished the
+      viewReady() method. Part of this Fragments initialization may need to access data in a nested
+      Fragment's Presenter. onResume() is called after onStart() so all nested Fragments have been
+      initialized at this point.
+    */
+    ((BasePresenter) mPresenter).nestedFragmentsReady();
   }
 
   @SuppressWarnings("unchecked") @Override public void onSaveInstanceState(Bundle outState) {
@@ -53,7 +64,10 @@ public abstract class MvpFragment<P> extends BaseFragment implements BaseView {
   }
 
   @Override public void onDestroyView() {
-    // We always unbind the view here since the view is no longer visible but the Fragment itself exists (such as a new Fragment being added to the stack)
+    /*
+      We always unbind the view here since the view is no longer visible but the Fragment itself
+      exists (such as a new Fragment being added to the stack)
+    */
     ((BasePresenter) mPresenter).unbindView();
     super.onDestroyView();
   }
